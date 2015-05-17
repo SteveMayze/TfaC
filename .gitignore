@@ -9,3 +9,4 @@ firmware/*.obj
 firmware/*.rpt
 firmware/*.BM
 EA/generated/*
+*.ldb
