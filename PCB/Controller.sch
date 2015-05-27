@@ -10,7 +10,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -29,6 +28,8 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:Tfac-Symbols
+LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -75,4 +76,16 @@ Connection ~ 3450 4400
 Wire Wire Line
 	3750 4500 3450 4500
 Connection ~ 3450 4500
+Text HLabel 2550 2200 0    60   Input ~ 0
+Vcc
+Wire Wire Line
+	2550 2200 3750 2200
+Wire Wire Line
+	3600 2200 3600 2500
+Wire Wire Line
+	3600 2300 3750 2300
+Connection ~ 3600 2200
+Wire Wire Line
+	3600 2500 3750 2500
+Connection ~ 3600 2300
 $EndSCHEMATC
