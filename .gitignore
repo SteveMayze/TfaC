@@ -11,3 +11,4 @@ firmware/*.BM
 EA/generated/*
 *.ldb
 Tfac-Symbols.dcm
+*.tiff
