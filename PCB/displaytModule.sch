@@ -29,6 +29,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
+LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -54,12 +55,12 @@ Text HLabel 2750 2250 0    60   Input ~ 0
 Text HLabel 2750 1650 0    60   Input ~ 0
 Vcc
 $Comp
-L DisplayModule M?
+L DisplayModule M301
 U 1 1 559837A8
 P 3700 1950
-F 0 "M?" H 3400 2300 60  0000 C CNN
+F 0 "M301" V 4200 2200 60  0000 C CNN
 F 1 "DisplayModule" H 3700 2050 60  0000 C CNN
-F 2 "" H 3700 1950 60  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Angled_1x05" H 3700 1950 60  0001 C CNN
 F 3 "" H 3700 1950 60  0000 C CNN
 	1    3700 1950
 	0    1    1    0   
