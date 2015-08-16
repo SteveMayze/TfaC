@@ -1,0 +1,409 @@
+Cmp-Mod V01 Created by Cvpcb 0.201505262310+5684~23~ubuntu14.04.1-product   date = Sun 16 Aug 2015 11:28:13 CEST
+
+BeginCmp
+TimeStamp = /55C15C22;
+Reference = ALMint1;
+ValeurCmp = ALMint;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565DCBC;
+Reference = C201;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/556C9E21;
+Reference = C202;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/556C9E5C;
+Reference = C203;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565DDF6;
+Reference = C204;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/5570FFE4;
+Reference = C501;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C15B52;
+Reference = DCFint1;
+ValeurCmp = DCFint;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/5560D585;
+Reference = IC501;
+ValeurCmp = ATMEGA88-A;
+IdModule  = Housings_QFP:LQFP-32_7x7mm_Pitch0.8mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D289/559837A8;
+Reference = M301;
+ValeurCmp = DisplayModule;
+IdModule  = Pin_Headers:Pin_Header_Angled_1x05;
+EndCmp
+
+BeginCmp
+TimeStamp = /5565E10C;
+Reference = P101;
+ValeurCmp = Line;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x02;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565EA50;
+Reference = P201;
+ValeurCmp = GND;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565D452;
+Reference = P202;
+ValeurCmp = Vin;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565D4A7;
+Reference = P203;
+ValeurCmp = Vcc;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565EC08;
+Reference = P204;
+ValeurCmp = Vbb;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/5570FD1E;
+Reference = P501;
+ValeurCmp = PRG;
+IdModule  = Pin_Headers:Pin_Header_Straight_2x03;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570815C;
+Reference = Q401;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570818B;
+Reference = Q402;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570800B;
+Reference = Q403;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/557080B4;
+Reference = Q404;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55708087;
+Reference = Q405;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/557080D9;
+Reference = Q406;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/557080FC;
+Reference = Q407;
+ValeurCmp = NOPOP;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570812B;
+Reference = Q408;
+ValeurCmp = IRLML2502;
+IdModule  = tfac-footprints:Micro3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/556C98C6;
+Reference = R201;
+ValeurCmp = 0;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570833A;
+Reference = R401;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55708378;
+Reference = R402;
+ValeurCmp = 1K5;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/557083DA;
+Reference = R403;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55708413;
+Reference = R404;
+ValeurCmp = 1K5;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709AF5;
+Reference = R405;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709AFB;
+Reference = R406;
+ValeurCmp = 4K7;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709B01;
+Reference = R407;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709B07;
+Reference = R408;
+ValeurCmp = 4K7;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709E4B;
+Reference = R409;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709E51;
+Reference = R410;
+ValeurCmp = 4K7;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709E57;
+Reference = R411;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/55709E5D;
+Reference = R412;
+ValeurCmp = 4K7;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570A9F3;
+Reference = R413;
+ValeurCmp = NOPOP;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570A9F9;
+Reference = R414;
+ValeurCmp = NOPOP;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570A9FF;
+Reference = R415;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/5570AA05;
+Reference = R416;
+ValeurCmp = 4K7;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55710A4C;
+Reference = R501;
+ValeurCmp = 10K;
+IdModule  = Resistors_SMD:R_0805_HandSoldering;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55D05D88;
+Reference = SW501;
+ValeurCmp = Time Set;
+IdModule  = tfac-footprints:TL3315;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55D05FEA;
+Reference = SW502;
+ValeurCmp = Alarm Set;
+IdModule  = tfac-footprints:TL3315;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55D0627F;
+Reference = SW503;
+ValeurCmp = Fast;
+IdModule  = tfac-footprints:TL3315;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55D06309;
+Reference = SW504;
+ValeurCmp = Slow;
+IdModule  = tfac-footprints:TL3315;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55C0F785;
+Reference = SW505;
+ValeurCmp = Auto Time;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55D06511;
+Reference = SW506;
+ValeurCmp = Sleep;
+IdModule  = tfac-footprints:TL3315;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55C107C5;
+Reference = SW507;
+ValeurCmp = Summer Time;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D274/55C0F8D0;
+Reference = SW508;
+ValeurCmp = Alarm Enabled;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C13258;
+Reference = TP-MISO1;
+ValeurCmp = MISO;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C1331B;
+Reference = TP-MOSI1;
+ValeurCmp = MOSI;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C15931;
+Reference = TP-Pint1;
+ValeurCmp = Pint;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C12D6C;
+Reference = TP-SCK1;
+ValeurCmp = SCK;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C142EA;
+Reference = TP-SS1;
+ValeurCmp = SS1;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /55C14795;
+Reference = TP-SS2;
+ValeurCmp = SS2;
+IdModule  = Pin_Headers:Pin_Header_Straight_1x01;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/5565D3BF;
+Reference = U201;
+ValeurCmp = MCP1703T-5002E/CB;
+IdModule  = tfac-footprints:SOT-23A;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D23E/556C9A30;
+Reference = U202;
+ValeurCmp = LD2979;
+IdModule  = tfac-footprints:SOT-23-5L;
+EndCmp
+
+BeginCmp
+TimeStamp = /5560D2A4/557082EC;
+Reference = U401;
+ValeurCmp = RTC-DCF77;
+IdModule  = tfac-footprints:RTC-DCF;
+EndCmp
+
+EndListe

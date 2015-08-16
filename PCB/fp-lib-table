@@ -1,3 +1,3 @@
 (fp_lib_table
-  (lib (name tfac-footprints)(type KiCad)(uri "$(KIPRJMOD)\\lib\\tfac-footprints.pretty")(options "")(descr ""))
+  (lib (name tfac-footprints)(type KiCad)(uri "$(KIPRJMOD)/lib/tfac-footprints.pretty")(options "")(descr ""))
 )
