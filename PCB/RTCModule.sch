@@ -205,9 +205,9 @@ Vcc
 Text HLabel 2050 3350 0    60   Input ~ 0
 Vbb
 Text GLabel 2300 4950 3    60   Input ~ 0
-Periodic_INT
+L_Periodic_INT
 Text GLabel 3150 4950 3    60   Input ~ 0
-DCF_RCPT
+L_DCF_RCPT
 $Comp
 L R R405
 U 1 1 55709AF5
@@ -531,25 +531,25 @@ Wire Wire Line
 	8850 4750 8950 4750
 Connection ~ 8950 4750
 Text GLabel 4000 4950 3    60   Input ~ 0
-~SS
+~L_SS
 Text GLabel 4850 4950 3    60   Input ~ 0
-MOSI
+L_MOSI
 Text GLabel 5700 4950 3    60   Input ~ 0
-MISO
+L_MISO
 Text GLabel 6550 4950 3    60   Input ~ 0
-SCK
+L_SCK
 Text GLabel 7500 4950 3    60   Input ~ 0
-Rx
+L_Rx
 Text GLabel 8350 4950 3    60   Input ~ 0
-ALARM_INT
+L_ALARM_INT
 Text GLabel 5000 1700 0    60   Input ~ 0
-MISO
+L_MISO
 Text GLabel 5000 1550 0    60   Input ~ 0
-MOSI
+L_MOSI
 Text GLabel 5000 1400 0    60   Input ~ 0
-SCK
+L_SCK
 Text GLabel 5000 1250 0    60   Input ~ 0
-~SS
+~L_SS
 Text Notes 1250 1600 0    60   ~ 0
 The RTC-DCF77 is a pre-fabricated module \nthat has two 6 contact pin headers each end. \nThis does not need any representation here \nwith respect to connectors.\n\nThis will be modelled in the foot print as two 6-pole \nthrough hole connectors\n
 Wire Wire Line
@@ -583,11 +583,11 @@ MISO
 Wire Wire Line
 	6300 5750 9100 5750
 Text GLabel 6850 1100 2    60   Input ~ 0
-Periodic_INT
+L_Periodic_INT
 Text GLabel 6850 1250 2    60   Input ~ 0
-DCF_RCPT
+L_DCF_RCPT
 Text GLabel 6850 1550 2    60   Input ~ 0
-ALARM_INT
+L_ALARM_INT
 Wire Wire Line
 	6450 1100 6850 1100
 Wire Wire Line
@@ -595,7 +595,7 @@ Wire Wire Line
 Wire Wire Line
 	6450 1550 6850 1550
 Text GLabel 6850 1400 2    60   Input ~ 0
-Rx
+L_Rx
 Wire Wire Line
 	6450 1400 6850 1400
 NoConn ~ 8100 5100
