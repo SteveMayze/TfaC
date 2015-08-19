@@ -116,94 +116,6 @@ F8 "Periodic_INT" I R 5350 2050 60
 F9 "DCF_RCPT" I R 5350 2200 60 
 F10 "ALARM_INT" I R 5350 2400 60 
 $EndSheet
-$Comp
-L CONN_01X01 TP-SCK1
-U 1 1 55C12D6C
-P 7150 1450
-F 0 "TP-SCK1" H 7150 1550 50  0000 C CNN
-F 1 "SCK" H 7300 1450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7150 1450 60  0001 C CNN
-F 3 "" H 7150 1450 60  0000 C CNN
-	1    7150 1450
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 TP-MISO1
-U 1 1 55C13258
-P 7800 1600
-F 0 "TP-MISO1" H 7800 1700 50  0000 C CNN
-F 1 "MISO" H 7950 1600 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7800 1600 60  0001 C CNN
-F 3 "" H 7800 1600 60  0000 C CNN
-	1    7800 1600
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 TP-MOSI1
-U 1 1 55C1331B
-P 7150 1750
-F 0 "TP-MOSI1" H 7150 1850 50  0000 C CNN
-F 1 "MOSI" H 7300 1750 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7150 1750 60  0001 C CNN
-F 3 "" H 7150 1750 60  0000 C CNN
-	1    7150 1750
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 TP-SS1
-U 1 1 55C142EA
-P 4200 5100
-F 0 "TP-SS1" H 4200 5200 50  0000 C CNN
-F 1 "SS1" H 4350 5100 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 4200 5100 60  0001 C CNN
-F 3 "" H 4200 5100 60  0000 C CNN
-	1    4200 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 TP-SS2
-U 1 1 55C14795
-P 3200 3100
-F 0 "TP-SS2" H 3200 3200 50  0000 C CNN
-F 1 "SS2" H 3350 3100 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 3200 3100 60  0001 C CNN
-F 3 "" H 3200 3100 60  0000 C CNN
-	1    3200 3100
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_01X01 TP-Pint1
-U 1 1 55C15931
-P 7150 2050
-F 0 "TP-Pint1" H 7150 2150 50  0000 C CNN
-F 1 "Pint" H 7300 2050 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7150 2050 60  0001 C CNN
-F 3 "" H 7150 2050 60  0000 C CNN
-	1    7150 2050
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 DCFint1
-U 1 1 55C15B52
-P 7650 2200
-F 0 "DCFint1" H 7650 2300 50  0000 C CNN
-F 1 "DCFint" H 7850 2200 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7650 2200 60  0001 C CNN
-F 3 "" H 7650 2200 60  0000 C CNN
-	1    7650 2200
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X01 ALMint1
-U 1 1 55C15C22
-P 7150 2400
-F 0 "ALMint1" H 7150 2500 50  0000 C CNN
-F 1 "ALMint" H 7350 2400 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 7150 2400 60  0001 C CNN
-F 3 "" H 7150 2400 60  0000 C CNN
-	1    7150 2400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1400 1050 2400 1050
 Wire Wire Line
@@ -211,19 +123,11 @@ Wire Wire Line
 Wire Wire Line
 	1500 1150 1500 1350
 Wire Wire Line
-	5350 2050 6950 2050
-Wire Wire Line
 	6250 2050 6250 3850
 Wire Wire Line
 	6250 3850 5850 3850
 Wire Wire Line
-	5350 2200 7450 2200
-Wire Wire Line
-	6150 2200 6150 3650
-Wire Wire Line
 	6150 3650 5850 3650
-Wire Wire Line
-	5350 2400 6950 2400
 Wire Wire Line
 	6050 2400 6050 3450
 Wire Wire Line
@@ -259,19 +163,13 @@ Wire Wire Line
 Wire Wire Line
 	4000 3500 4550 3500
 Wire Wire Line
-	5350 1750 6950 1750
-Wire Wire Line
 	6500 1750 6500 5450
 Wire Wire Line
 	6500 4200 5850 4200
 Wire Wire Line
-	5350 1600 7600 1600
-Wire Wire Line
 	6600 1600 6600 5600
 Wire Wire Line
 	6600 4350 5850 4350
-Wire Wire Line
-	5350 1450 6950 1450
 Wire Wire Line
 	6700 1450 6700 5750
 Wire Wire Line
@@ -286,15 +184,45 @@ Wire Wire Line
 	6700 5750 5850 5750
 Connection ~ 6700 4550
 Wire Wire Line
-	3400 3100 4000 3100
-Connection ~ 4000 3100
+	5350 2400 6050 2400
+Wire Wire Line
+	5350 2200 6150 2200
+Wire Wire Line
+	6150 2200 6150 3650
+Wire Wire Line
+	5350 2050 6250 2050
+Wire Wire Line
+	5350 1450 6700 1450
+Wire Wire Line
+	5350 1600 6600 1600
+Wire Wire Line
+	5350 1750 6500 1750
+Connection ~ 3850 5100
 Wire Wire Line
 	4000 5100 3850 5100
-Connection ~ 3850 5100
-Connection ~ 6700 1450
-Connection ~ 6600 1600
-Connection ~ 6500 1750
-Connection ~ 6250 2050
-Connection ~ 6150 2200
-Connection ~ 6050 2400
+$Comp
+L CONN_01X01 TP-SS1
+U 1 1 55C142EA
+P 4200 5100
+F 0 "TP-SS1" H 4200 5200 50  0000 C CNN
+F 1 "SS1" H 4350 5100 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 4200 5100 60  0001 C CNN
+F 3 "" H 4200 5100 60  0000 C CNN
+	1    4200 5100
+	1    0    0    -1  
+$EndComp
+Connection ~ 4000 3100
+Wire Wire Line
+	3400 3100 4000 3100
+$Comp
+L CONN_01X01 TP-SS2
+U 1 1 55C14795
+P 3200 3100
+F 0 "TP-SS2" H 3200 3200 50  0000 C CNN
+F 1 "SS2" H 3350 3100 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 3200 3100 60  0001 C CNN
+F 3 "" H 3200 3100 60  0000 C CNN
+	1    3200 3100
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

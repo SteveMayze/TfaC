@@ -60,7 +60,7 @@ U 1 1 559837A8
 P 3700 1950
 F 0 "M301" V 4200 2200 60  0000 C CNN
 F 1 "DisplayModule" H 3700 2050 60  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Angled_1x05" H 3700 1950 60  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x05" H 3700 1950 60  0001 C CNN
 F 3 "" H 3700 1950 60  0000 C CNN
 	1    3700 1950
 	0    1    1    0   

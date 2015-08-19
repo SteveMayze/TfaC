@@ -72,34 +72,8 @@ Text HLabel 3750 2000 0    60   Input ~ 0
 Vin
 Wire Wire Line
 	3750 2000 4700 2000
-$Comp
-L CONN_01X01 P202
-U 1 1 5565D452
-P 4250 1600
-F 0 "P202" V 4250 1450 50  0000 C CNN
-F 1 "Vin" V 4350 1600 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 4250 1600 60  0001 C CNN
-F 3 "" H 4250 1600 60  0000 C CNN
-	1    4250 1600
-	0    -1   -1   0   
-$EndComp
-Connection ~ 4250 2000
 Wire Wire Line
 	5300 2000 6350 2000
-$Comp
-L CONN_01X01 P203
-U 1 1 5565D4A7
-P 5650 1600
-F 0 "P203" V 5650 1400 50  0000 C CNN
-F 1 "Vcc" V 5750 1600 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 5650 1600 60  0001 C CNN
-F 3 "" H 5650 1600 60  0000 C CNN
-	1    5650 1600
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5650 1800 5650 2150
-Connection ~ 5650 2000
 Wire Wire Line
 	5500 4000 6600 4000
 $Comp
@@ -113,9 +87,6 @@ F 3 "" H 6350 4350 60  0000 C CNN
 	1    6350 4350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6350 3850 6350 4200
-Connection ~ 6350 4000
 Wire Wire Line
 	6350 4500 6350 4800
 $Comp
@@ -135,33 +106,7 @@ Text HLabel 6600 4000 2    60   Output ~ 0
 Vbb
 Text HLabel 3500 4000 0    60   Input ~ 0
 Vin
-Wire Wire Line
-	4250 1800 4250 2150
-$Comp
-L CONN_01X01 P201
-U 1 1 5565EA50
-P 3700 2950
-F 0 "P201" H 3700 3050 50  0000 C CNN
-F 1 "GND" H 3700 2850 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 3700 2950 60  0001 C CNN
-F 3 "" H 3700 2950 60  0000 C CNN
-	1    3700 2950
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3900 2950 5650 2950
 Connection ~ 5000 2950
-$Comp
-L CONN_01X01 P204
-U 1 1 5565EC08
-P 6350 3650
-F 0 "P204" V 6350 3500 50  0000 C CNN
-F 1 "Vbb" V 6450 3650 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01" H 6350 3650 60  0001 C CNN
-F 3 "" H 6350 3650 60  0000 C CNN
-	1    6350 3650
-	0    -1   -1   0   
-$EndComp
 $Comp
 L GND #PWR04
 U 1 1 556C9868
@@ -188,6 +133,8 @@ $Comp
 L LD2979 U202
 U 1 1 556C9A30
 P 5050 4000
+AR Path="/556C9A30" Ref="U202"  Part="1" 
+AR Path="/5560D23E/556C9A30" Ref="U202"  Part="1" 
 F 0 "U202" H 5350 3350 50  0000 C CNN
 F 1 "LD2979" H 5050 4150 50  0000 C CNN
 F 2 "tfac-footprints:SOT-23-5L" H 5050 4000 60  0001 C CNN
@@ -234,7 +181,6 @@ Wire Wire Line
 	5000 2200 5000 3050
 Wire Wire Line
 	4250 2450 4250 2950
-Connection ~ 4250 2950
 Wire Wire Line
 	5650 2950 5650 2450
 Connection ~ 3750 4000
@@ -264,4 +210,15 @@ F 3 "" H 3750 4800 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	3750 4500 3750 4800
+Wire Wire Line
+	4250 2150 4250 2000
+Connection ~ 4250 2000
+Wire Wire Line
+	5650 2150 5650 2000
+Connection ~ 5650 2000
+Wire Wire Line
+	6350 4200 6350 4000
+Connection ~ 6350 4000
+Wire Wire Line
+	4250 2950 5650 2950
 $EndSCHEMATC
