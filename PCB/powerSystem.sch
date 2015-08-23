@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:TfaC-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -130,7 +131,7 @@ F 3 "" H 4300 4250 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LD2979 U202
+L LD2979-RESCUE-TfaC U202
 U 1 1 556C9A30
 P 5050 4000
 AR Path="/556C9A30" Ref="U202"  Part="1" 

@@ -1,0 +1,457 @@
+==============================================================================
+= 02/05/2015 16:59:16                                                        =
+==============================================================================
+Device not opened.
+
+Exception class: EDeviceError
+Exception message: Device not opened.
+Exception address: 007523EA
+------------------------------------------------------------------------------
+Stack list, generated 02/05/2015 16:59:15
+(003513E5){bascavr.exe } [007523E5]
+(0035399E){bascavr.exe } [0075499E]
+(00373479){bascavr.exe } [00774479]
+(00373BE8){bascavr.exe } [00774BE8]
+(0037766D){bascavr.exe } [0077866D]
+(0037B014){bascavr.exe } [0077C014]
+(001D99A4){bascavr.exe } [005DA9A4]
+(00379164){bascavr.exe } [0077A164]
+(00071720){bascavr.exe } [00472720]
+(000D416C){bascavr.exe } [004D516C]
+(00071B9B){bascavr.exe } [00472B9B]
+(0007121B){bascavr.exe } [0047221B]
+(00070EA8){bascavr.exe } [00471EA8]
+(00074A3E){bascavr.exe } [00475A3E]
+(00074B06){bascavr.exe } [00475B06]
+(00070EA8){bascavr.exe } [00471EA8]
+(00074D11){bascavr.exe } [00475D11]
+(000750D9){bascavr.exe } [004760D9]
+(000D617B){bascavr.exe } [004D717B]
+(00004002){bascavr.exe } [00405002]
+(000D61B1){bascavr.exe } [004D71B1]
+(000D8AE1){bascavr.exe } [004D9AE1]
+(00074948){bascavr.exe } [00475948]
+(0002F820){bascavr.exe } [00430820]
+(00091489){bascavr.exe } [00492489]
+(00090508){bascavr.exe } [00491508]
+(00090542){bascavr.exe } [00491542]
+(00090837){bascavr.exe } [00491837]
+(0048CC6A){bascavr.exe } [0088DC6A]
+------------------------------------------------------------------------------
+System   :  Workstation, Version: 6.2, Build: 23F0, ""
+Processor: Intel,       Intel(R) Core(TM) i7-2820QM CPU @ 2.30GHz, 2320 MHz MMX SSE3 DEP
+Memory: 2047; free 2047
+Display  : 1680x1050 pixels, 32 bpp
+------------------------------------------------------------------------------
+List of loaded modules:
+[00400000] C:\Program Files\MCS Electronics\BASCOM-AVR\bascavr.exe
+           1.11.9.8 - 1.11.9.8
+           BASCOM-AVR IDE
+[00F00000] C:\Program Files\MCS Electronics\BASCOM-AVR\BASC-AVR.DLL
+<00400000> 1.11.9.8 - 1.11.9.8
+           BASCOM-AVR Compiler
+[059B0000] C:\Program Files\MCS Electronics\BASCOM-AVR\SaxComm7.ocx
+<10000000> 7.0.0.2182 - 7, 0, 0, 2182
+           Sax Comm Objects 7.0
+[06030000] C:\Program Files\MCS Electronics\BASCOM-AVR\TVicPort.dll
+<10000000> 5.0.1.1 - 6.0
+           TVicPort Interface Library
+[10000000] C:\Program Files\MCS Electronics\BASCOM-AVR\BASCPDF.DLL
+           1.0.0.1 - 1.0
+           PDF Reader DLL
+[62260000] C:\Windows\System32\jscript9.dll
+           11.0.9600.17728 - 11.00.9600.17031 (winblue_gdr.140221-1952)
+           Microsoft ® JScript
+[62690000] C:\Windows\System32\mshtml.dll
+           11.0.9600.17728 - 11.00.9600.17278 (winblue_r2.140815-1500)
+           Microsoft (R) HTML Viewer
+[644B0000] C:\Windows\system32\dbghelp.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Windows Image Helper
+[66180000] C:\Program Files\Common Files\microsoft shared\ink\tiptsf.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Touch Keyboard and Handwriting Panel Text Services Framework
+[66550000] C:\Windows\system32\VBoxMRXNP.dll
+           4.3.26.0 - 4.3.26.98988
+           VirtualBox Shared Folders Minirdr NP
+[66660000] C:\Program Files\TortoiseSVN\bin\libsvn_tsvn32.dll
+           1.8.9.18516 - 1.8.9
+           Subversion library dll built for TortoiseSVN
+[66CF0000] C:\Program Files\TortoiseSVN\bin\TortoiseSVN32.dll
+           1.8.7.25475 - 1.8.7.25475
+           TortoiseSVN shell extension client
+[671F0000] C:\Windows\System32\StructuredQuery.dll
+           7.0.9600.17415 - 7.00.9600.17415 (winblue_r4.141028-1500)
+           Structured Query
+[67400000] C:\Program Files\TortoiseSVN\bin\TortoiseStub32.dll
+           1.8.7.25475 - 1.8.7.25475
+           TortoiseSVN shell extension client
+[67650000] C:\Program Files\Common Files\TortoiseOverlays\TortoiseOverlays.dll
+           1.1.3.21564 - 1, 1, 3, 21564
+           TortoiseSVN overlay handler shim
+[67830000] C:\Windows\system32\NetworkExplorer.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Network Explorer
+[68300000] C:\Windows\SYSTEM32\TAPI32.DLL
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft® Windows(TM) Telephony API Client DLL
+[69CC0000] C:\Windows\System32\dlnashext.dll
+           12.0.9600.17415 - 12.0.9600.16384 (winblue_rtm.130821-1623)
+           DLNA Namespace DLL
+[6AA40000] C:\Windows\System32\ieframe.dll
+           11.0.9600.17728 - 11.00.9600.17728 (winblue_r9.150312-1720)
+           Internet Browser
+[6B710000] C:\Windows\SYSTEM32\LINKINFO.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Windows Volume Tracking
+[6B7A0000] C:\Windows\SYSTEM32\ntshrui.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Shell extensions for sharing
+[6B8B0000] C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.9600.17415_none_dad8722c5bcc2d8f\gdiplus.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Microsoft GDI+
+[6BDF0000] C:\Windows\System32\thumbcache.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Thumbnail Cache
+[6CC90000] C:\Windows\SYSTEM32\atlthunk.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           atlthunk.dll
+[6CEF0000] C:\Program Files\TortoiseSVN\bin\libsasl32.dll
+           2.1.24.0 - 2.1.24
+[6D560000] C:\Windows\system32\explorerframe.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           ExplorerFrame
+[6D820000] C:\Windows\System32\twinapi.appcore.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           twinapi.appcore
+[6D9D0000] C:\Windows\System32\twinapi.dll
+           6.3.9600.17415 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           twinapi
+[6DBB0000] C:\Windows\System32\DevDispItemProvider.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           DeviceItem inproc devquery subsystem
+[6DC90000] C:\Windows\System32\dfscli.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Windows NT Distributed File System Client DLL
+[6DD80000] C:\Windows\SYSTEM32\wsock32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Socket 32-Bit DLL
+[6DD90000] C:\Windows\System32\EhStorShell.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Enhanced Storage Shell Extension DLL
+[6DDD0000] C:\Windows\SYSTEM32\winspool.drv
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Spooler Driver
+[6DE70000] C:\Program Files\TortoiseSVN\bin\libaprutil_tsvn32.dll
+           1.5.3.0 - 1.5.3
+           Apache Portable Runtime Utility Library
+[6DEB0000] C:\Windows\SYSTEM32\MSVCR110.dll
+           11.0.51106.1 - 11.00.51106.1 built by: Q11REL
+           Microsoft® C Runtime Library
+[6DF90000] C:\Windows\SYSTEM32\MSVCP110.dll
+           11.0.51106.1 - 11.00.51106.1 built by: Q11REL
+           Microsoft® C Runtime Library
+[6E020000] C:\Windows\System32\DAVHLPR.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           DAV Helper DLL
+[6E030000] C:\Windows\System32\davclnt.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Web DAV Client DLL
+[6E050000] C:\Windows\SYSTEM32\msimg32.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           GDIEXT Client DLL
+[6E060000] C:\Windows\System32\ntlanman.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft® Lan Manager
+[6E0D0000] C:\Windows\System32\drprov.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Remote Desktop Session Host Server Network Provider
+[6E0F0000] C:\Program Files\TortoiseSVN\bin\intl3_tsvn32.dll
+           0.14.6.0 - 0.14.6
+           LGPLed libintl for Windows NT/2000/XP and Windows 95/98/ME
+[6E150000] C:\Program Files\TortoiseSVN\bin\libapr_tsvn32.dll
+           1.5.1.0 - 1.5.1
+           Apache Portable Runtime Library
+[6E180000] C:\Windows\System32\actxprxy.dll
+           6.3.9600.17416 - 6.3.9600.17416 (winblue_r4.141030-1500)
+           ActiveX Interface Marshaling Library
+[6E300000] C:\Windows\SYSTEM32\WINMMBASE.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Base Multimedia Extension API DLL
+[6E560000] C:\Windows\SYSTEM32\winmm.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           MCI API DLL
+[6E6C0000] C:\Windows\SYSTEM32\mpr.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Multiple Provider Router DLL
+[6EF30000] C:\Windows\SYSTEM32\HHCTRL.OCX
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft® HTML Help Control
+[6F1B0000] C:\Windows\System32\itircl.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Microsoft® InfoTech IR Local DLL
+[6F570000] C:\Windows\SYSTEM32\MLANG.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Multi Language Support DLL
+[6F5B0000] C:\Windows\SYSTEM32\msls31.dll
+           3.10.349.0 - 3.10.349.0
+           Microsoft Line Services library file
+[6F5F0000] C:\Windows\SYSTEM32\cscapi.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Offline Files Win32 API
+[6F9B0000] C:\Windows\System32\browcli.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Browser Service Client DLL
+[6FD30000] C:\Windows\System32\rasadhlp.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Remote Access AutoDial Helper
+[70280000] C:\Windows\SYSTEM32\wininet.dll
+           11.0.9600.17728 - 11.00.9600.16384 (winblue_rtm.130821-1623)
+           Internet Extensions for Win32
+[70550000] C:\Windows\SYSTEM32\iertutil.dll
+           11.0.9600.17728 - 11.00.9600.16384 (winblue_rtm.130821-1623)
+           Run time utility for Internet Explorer
+[70900000] C:\Windows\System32\urlmon.dll
+           11.0.9600.17728 - 11.00.9600.16384 (winblue_rtm.130821-1623)
+           OLE32 Extensions for Win32
+[70B40000] C:\Windows\SYSTEM32\winhttp.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows HTTP Services
+[710E0000] C:\Windows\SYSTEM32\MSVFW32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Video for Windows DLL
+[71110000] C:\Windows\SYSTEM32\libusb0.dll
+           1.2.6.0 - 1.2.6.0
+           libusb-win32 - DLL
+[71130000] C:\Windows\SYSTEM32\olepro32.dll
+           6.3.9600.17415 - 6.3.9600.17415
+[71170000] C:\Windows\System32\itss.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Microsoft® InfoTech Storage System Library
+[712F0000] C:\Windows\system32\mssprxy.dll
+           7.0.9600.17415 - 7.00.9600.17415 (winblue_r4.141028-1500)
+           Microsoft Search Proxy
+[71DA0000] C:\Windows\System32\dhcpcsvc6.DLL
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           DHCPv6 Client
+[71E70000] C:\Windows\System32\fwpuclnt.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           FWP/IPsec User-Mode API
+[72110000] C:\Windows\System32\uiautomationcore.dll
+           7.2.9600.17415 - 7.2.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft UI Automation Core
+[72210000] C:\Windows\system32\propsys.dll
+           7.0.9600.17415 - 7.00.9600.17031 (winblue_gdr.140221-1952)
+           Microsoft Property System
+[724E0000] C:\Windows\system32\msimtf.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Active IMM Server DLL
+[72520000] C:\Windows\SYSTEM32\rtutils.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Routing Utilities
+[72660000] C:\Windows\SYSTEM32\oleacc.dll
+           7.2.9600.17415 - 7.2.9600.17415 (winblue_r4.141028-1500)
+           Active Accessibility Core Component
+[726B0000] C:\Windows\system32\xmllite.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Microsoft XmlLite Library
+[72700000] C:\Windows\SYSTEM32\DWrite.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft DirectX Typography Services
+[728F0000] C:\Windows\System32\wkscli.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Workstation Service Client DLL
+[72940000] C:\Windows\SYSTEM32\ondemandconnroutehelper.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           On Demand Connctiond Route Helper
+[72AC0000] C:\Windows\SYSTEM32\d2d1.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft D2D Library
+[73100000] C:\Windows\System32\dhcpcsvc.DLL
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           DHCP Client Service
+[734E0000] C:\Windows\SYSTEM32\d3d10warp.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Direct3D 10 Rasterizer
+[73700000] C:\Windows\system32\DUser.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows DirectUser Engine
+[73780000] C:\Windows\SYSTEM32\dxgi.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           DirectX Graphics Infrastructure
+[73820000] C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9600.17415_none_a9ed7f470139b3c1\comctl32.dll
+           6.10.9600.17415 - 6.10 (winblue_rtm.130821-1623)
+           User Experience Controls Library
+[73A30000] C:\Windows\SYSTEM32\d3d11.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Direct3D 11 Runtime
+[73C20000] C:\Windows\SYSTEM32\WindowsCodecs.dll
+           6.3.9600.17669 - 6.3.9600.17669 (winblue_r8.150128-1500)
+           Microsoft Windows Codecs Library
+[73D90000] C:\Windows\System32\WINNSI.DLL
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Network Store Information RPC interface
+[73DA0000] C:\Windows\System32\IPHLPAPI.DLL
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           IP Helper API
+[73DC0000] C:\Windows\SYSTEM32\version.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Version Checking and File Installation Libraries
+[73DD0000] C:\Windows\system32\dwmapi.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Desktop Window Manager API
+[73E50000] C:\Windows\SYSTEM32\Secur32.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Security Support Provider Interface
+[73E60000] C:\Windows\system32\DUI70.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows DirectUI Engine
+[74450000] C:\Windows\SYSTEM32\apphelp.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Application Compatibility Client Library
+[74570000] C:\Windows\SYSTEM32\kernel.appcore.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           AppModel API Host
+[74580000] C:\Windows\system32\uxtheme.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft UxTheme Library
+[74680000] C:\Windows\SYSTEM32\DEVOBJ.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Device Information Set DLL
+[749E0000] C:\Windows\System32\netutils.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Net Win32 API Helpers DLL
+[74B60000] C:\Windows\system32\rsaenh.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Enhanced Cryptographic Provider
+[74CA0000] C:\Windows\SYSTEM32\USERENV.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Userenv
+[74CF0000] C:\Windows\SYSTEM32\DNSAPI.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           DNS Client API DLL
+[74E80000] C:\Windows\SYSTEM32\MSWSOCK.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft Windows Sockets 2.0 Service Provider
+[74ED0000] C:\Windows\SYSTEM32\CRYPTSP.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Cryptographic Service Provider API
+[750C0000] C:\Windows\SYSTEM32\bcrypt.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Cryptographic Primitives Library
+[751A0000] C:\Windows\SYSTEM32\srvcli.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Server Service Client DLL
+[75320000] C:\Windows\SYSTEM32\SspiCli.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Security Support Provider Interface
+[75350000] C:\Windows\SYSTEM32\bcryptPrimitives.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Windows Cryptographic Primitives Library
+[753B0000] C:\Windows\SYSTEM32\sxs.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Fusion 2.5
+[75430000] C:\Windows\System32\WINSTA.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Winstation Library
+[75480000] C:\Windows\SYSTEM32\CRYPTBASE.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Base cryptographic API DLL
+[754B0000] C:\Windows\SYSTEM32\powrprof.dll
+           6.3.9600.17415 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           Power Profile Helper DLL
+[754F0000] C:\Windows\SYSTEM32\profapi.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           User Profile Basic API
+[75560000] C:\Windows\system32\MSASN1.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           ASN.1 Runtime APIs
+[75570000] C:\Windows\system32\KERNELBASE.dll
+           6.3.9600.17415 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           Windows NT BASE API Client DLL
+[75650000] C:\Windows\system32\CRYPT32.dll
+           6.3.9600.17475 - 6.3.9600.16431 (winblue_gdr.131015-2301)
+           Crypto API32
+[757E0000] C:\Windows\system32\WINTRUST.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Microsoft Trust Verification APIs
+[758B0000] C:\Windows\SYSTEM32\cfgmgr32.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Configuration Manager DLL
+[758F0000] C:\Windows\system32\KERNEL32.DLL
+           6.3.9600.17415 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           Windows NT BASE API Client DLL
+[759F0000] C:\Windows\SYSTEM32\clbcatq.dll
+           2001.12.10530.17415 - 2001.12.10530.17415 (winblue_r4.141028-1500)
+           COM+ Configuration Catalog
+[75A80000] C:\Windows\system32\combase.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft COM for Windows
+[75C00000] C:\Windows\system32\IMM32.DLL
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Multi-User Windows IMM32 API Client DLL
+[75C30000] C:\Windows\system32\NSI.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           NSI User-mode interface DLL
+[75C40000] C:\Windows\system32\advapi32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Advanced Windows 32 Base API
+[75CC0000] C:\Windows\system32\SHCORE.DLL
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           SHCORE
+[75D50000] C:\Windows\system32\MSCTF.dll
+           6.3.9600.17664 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           MSCTF Server DLL
+[75E70000] C:\Windows\system32\comdlg32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Common Dialogues DLL
+[75F10000] C:\Windows\system32\user32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Multi-User Windows USER API Client DLL
+[76070000] C:\Windows\system32\imagehlp.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Windows NT Image Helper
+[76200000] C:\Windows\system32\SETUPAPI.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Setup API
+[763C0000] C:\Windows\SYSTEM32\sechost.dll
+           6.3.9600.17734 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Host for SCM/SDDL/LSA Lookup APIs
+[76410000] C:\Windows\system32\ole32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Microsoft OLE for Windows
+[76540000] C:\Windows\system32\WS2_32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Windows Socket 2.0 32-Bit DLL
+[76590000] C:\Windows\system32\PSAPI.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           Process Status Helper
+[765A0000] C:\Windows\system32\RPCRT4.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Remote Procedure Call Runtime
+[766D0000] C:\Windows\system32\gdi32.dll
+           6.3.9600.17415 - 6.3.9600.17415 (winblue_r4.141028-1500)
+           GDI Client DLL
+[767F0000] C:\Windows\system32\shell32.dll
+           6.3.9600.17680 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           Windows Shell Common Dll
+[77AA0000] C:\Windows\system32\msvcrt.dll
+           7.0.9600.17415 - 7.0.9600.17415 (winblue_r4.141028-1500)
+           Windows NT CRT DLL
+[77B70000] C:\Windows\system32\oleaut32.dll
+           6.3.9600.17560 - 6.3.9600.17560
+[77C10000] C:\Windows\system32\SHLWAPI.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Shell Light-weight Utility Library
+[77C70000] C:\Windows\system32\WLDAP32.dll
+           6.3.9600.17415 - 6.3.9600.16384 (winblue_rtm.130821-1623)
+           Win32 LDAP API DLL
+[77CD0000] C:\Windows\SYSTEM32\ntdll.dll
+           6.3.9600.17736 - 6.3.9600.17031 (winblue_gdr.140221-1952)
+           NT Layer DLL
+------------------------------------------------------------------------------
+Active Controls hierarchy:
+TDCMemo "view"
+TPanel "Panel1"
+TfrmSim "frmSim"
+------------------------------------------------------------------------------

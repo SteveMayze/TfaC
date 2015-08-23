@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:TfaC-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -117,41 +118,39 @@ $EndComp
 $Comp
 L C C501
 U 1 1 5570FFE4
-P 2700 2500
-F 0 "C501" H 2725 2600 50  0000 L CNN
-F 1 "100n" H 2725 2400 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 2738 2350 30  0001 C CNN
-F 3 "" H 2700 2500 60  0000 C CNN
-	1    2700 2500
+P 3350 2500
+F 0 "C501" H 3375 2600 50  0000 L CNN
+F 1 "100n" H 3375 2400 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 3388 2350 30  0001 C CNN
+F 3 "" H 3350 2500 60  0000 C CNN
+	1    3350 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND #PWR011
 U 1 1 55710077
-P 2700 2900
-F 0 "#PWR011" H 2700 2650 50  0001 C CNN
-F 1 "GND" H 2700 2750 50  0000 C CNN
-F 2 "" H 2700 2900 60  0000 C CNN
-F 3 "" H 2700 2900 60  0000 C CNN
-	1    2700 2900
+P 3350 2900
+F 0 "#PWR011" H 3350 2650 50  0001 C CNN
+F 1 "GND" H 3350 2750 50  0000 C CNN
+F 2 "" H 3350 2900 60  0000 C CNN
+F 3 "" H 3350 2900 60  0000 C CNN
+	1    3350 2900
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R501
 U 1 1 55710A4C
-P 3200 2200
-F 0 "R501" V 3280 2200 50  0000 C CNN
-F 1 "10K" V 3200 2200 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 3130 2200 30  0001 C CNN
-F 3 "" H 3200 2200 30  0000 C CNN
-	1    3200 2200
+P 6550 3650
+F 0 "R501" V 6630 3650 50  0000 C CNN
+F 1 "10K" V 6550 3650 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6480 3650 30  0001 C CNN
+F 3 "" H 6550 3650 30  0000 C CNN
+	1    6550 3650
 	0    1    1    0   
 $EndComp
 Text GLabel 6500 1400 0    60   Input ~ 0
 Reset
-Text GLabel 5900 3650 2    60   Input ~ 0
-Reset
-Text GLabel 3150 1700 2    60   Input ~ 0
+Text GLabel 3050 1950 0    60   Input ~ 0
 Reset
 $Comp
 L GND #PWR012
@@ -342,24 +341,10 @@ Wire Wire Line
 Wire Wire Line
 	7100 1300 6850 1300
 Wire Wire Line
-	2700 2650 2700 2900
-Wire Wire Line
-	2700 2350 2700 2200
-Wire Wire Line
-	3350 2200 3750 2200
+	3350 2650 3350 2900
 Connection ~ 3600 2200
 Wire Wire Line
-	2200 2200 3050 2200
-Connection ~ 2700 2200
-Wire Wire Line
 	6500 1400 7100 1400
-Wire Wire Line
-	5900 3650 5650 3650
-Wire Wire Line
-	3150 1700 2900 1700
-Wire Wire Line
-	2900 1700 2900 2200
-Connection ~ 2900 2200
 Wire Wire Line
 	10100 1750 10100 5850
 Connection ~ 10100 3800
@@ -490,4 +475,20 @@ Connection ~ 10100 4350
 Connection ~ 9650 4350
 NoConn ~ 9900 5450
 NoConn ~ 9300 3850
+Wire Wire Line
+	2200 2200 3750 2200
+Wire Wire Line
+	5650 3650 6400 3650
+Wire Wire Line
+	6700 3650 6900 3650
+Wire Wire Line
+	3350 2350 3350 2200
+Connection ~ 3350 2200
+Wire Wire Line
+	3050 1950 3200 1950
+Wire Wire Line
+	3200 1950 3200 2200
+Connection ~ 3200 2200
+Text HLabel 6900 3650 2    60   Input ~ 0
+Vcc
 $EndSCHEMATC
