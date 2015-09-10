@@ -30,7 +30,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
-LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -67,7 +66,7 @@ F 3 "" H 3450 4800 60  0000 C CNN
 	1    3450 4800
 	1    0    0    -1  
 $EndComp
-Text HLabel 2200 2200 0    60   Input ~ 0
+Text HLabel 3100 2200 0    60   Input ~ 0
 Vcc
 Text HLabel 6000 2500 2    60   Input ~ 0
 MOSI
@@ -150,7 +149,7 @@ F 3 "" H 6550 3650 30  0000 C CNN
 $EndComp
 Text GLabel 6500 1400 0    60   Input ~ 0
 Reset
-Text GLabel 3050 1950 0    60   Input ~ 0
+Text GLabel 6900 3400 2    60   Input ~ 0
 Reset
 $Comp
 L GND #PWR012
@@ -298,7 +297,11 @@ $EndComp
 Wire Wire Line
 	3750 4300 3450 4300
 Wire Wire Line
-	3450 4300 3450 4800
+	3450 4300 3450 4400
+Wire Wire Line
+	3450 4400 3450 4500
+Wire Wire Line
+	3450 4500 3450 4800
 Wire Wire Line
 	3750 4400 3450 4400
 Connection ~ 3450 4400
@@ -306,7 +309,9 @@ Wire Wire Line
 	3750 4500 3450 4500
 Connection ~ 3450 4500
 Wire Wire Line
-	3600 2200 3600 2500
+	3600 2200 3600 2300
+Wire Wire Line
+	3600 2300 3600 2500
 Wire Wire Line
 	3600 2300 3750 2300
 Wire Wire Line
@@ -346,7 +351,21 @@ Connection ~ 3600 2200
 Wire Wire Line
 	6500 1400 7100 1400
 Wire Wire Line
-	10100 1750 10100 5850
+	10100 1750 10100 2200
+Wire Wire Line
+	10100 2200 10100 2650
+Wire Wire Line
+	10100 2650 10100 3100
+Wire Wire Line
+	10100 3100 10100 3800
+Wire Wire Line
+	10100 3800 10100 4350
+Wire Wire Line
+	10100 4350 10100 4800
+Wire Wire Line
+	10100 4800 10100 5650
+Wire Wire Line
+	10100 5650 10100 5850
 Connection ~ 10100 3800
 Wire Wire Line
 	8550 1750 8950 1750
@@ -389,14 +408,18 @@ Wire Wire Line
 Wire Wire Line
 	9050 1650 8950 1650
 Wire Wire Line
-	8950 1650 8950 1850
+	8950 1650 8950 1750
+Wire Wire Line
+	8950 1750 8950 1850
 Wire Wire Line
 	8950 1850 9050 1850
 Connection ~ 8950 1750
 Wire Wire Line
 	9550 1650 9650 1650
 Wire Wire Line
-	9650 1650 9650 1850
+	9650 1650 9650 1750
+Wire Wire Line
+	9650 1750 9650 1850
 Wire Wire Line
 	9650 1850 9550 1850
 Wire Wire Line
@@ -405,14 +428,18 @@ Connection ~ 9650 1750
 Wire Wire Line
 	9050 2100 8950 2100
 Wire Wire Line
-	8950 2100 8950 2300
+	8950 2100 8950 2200
+Wire Wire Line
+	8950 2200 8950 2300
 Wire Wire Line
 	8950 2300 9050 2300
 Connection ~ 8950 2200
 Wire Wire Line
 	9550 2100 9650 2100
 Wire Wire Line
-	9650 2100 9650 2300
+	9650 2100 9650 2200
+Wire Wire Line
+	9650 2200 9650 2300
 Wire Wire Line
 	9650 2300 9550 2300
 Wire Wire Line
@@ -422,14 +449,18 @@ Connection ~ 9650 2200
 Wire Wire Line
 	9050 2550 8950 2550
 Wire Wire Line
-	8950 2550 8950 2750
+	8950 2550 8950 2650
+Wire Wire Line
+	8950 2650 8950 2750
 Wire Wire Line
 	8950 2750 9050 2750
 Connection ~ 8950 2650
 Wire Wire Line
 	9550 2550 9650 2550
 Wire Wire Line
-	9650 2550 9650 2750
+	9650 2550 9650 2650
+Wire Wire Line
+	9650 2650 9650 2750
 Wire Wire Line
 	9650 2750 9550 2750
 Wire Wire Line
@@ -442,14 +473,18 @@ NoConn ~ 9650 3600
 Wire Wire Line
 	9050 3000 8950 3000
 Wire Wire Line
-	8950 3000 8950 3200
+	8950 3000 8950 3100
+Wire Wire Line
+	8950 3100 8950 3200
 Wire Wire Line
 	8950 3200 9050 3200
 Connection ~ 8950 3100
 Wire Wire Line
 	9550 3000 9650 3000
 Wire Wire Line
-	9650 3000 9650 3200
+	9650 3000 9650 3100
+Wire Wire Line
+	9650 3100 9650 3200
 Wire Wire Line
 	9650 3200 9550 3200
 Wire Wire Line
@@ -459,14 +494,18 @@ Connection ~ 9650 3100
 Wire Wire Line
 	9050 4250 8900 4250
 Wire Wire Line
-	8900 4250 8900 4450
+	8900 4250 8900 4350
+Wire Wire Line
+	8900 4350 8900 4450
 Wire Wire Line
 	8900 4450 9050 4450
 Connection ~ 8900 4350
 Wire Wire Line
 	9550 4250 9650 4250
 Wire Wire Line
-	9650 4250 9650 4450
+	9650 4250 9650 4350
+Wire Wire Line
+	9650 4350 9650 4450
 Wire Wire Line
 	9650 4450 9550 4450
 Wire Wire Line
@@ -476,19 +515,25 @@ Connection ~ 9650 4350
 NoConn ~ 9900 5450
 NoConn ~ 9300 3850
 Wire Wire Line
-	2200 2200 3750 2200
+	3100 2200 3350 2200
 Wire Wire Line
-	5650 3650 6400 3650
+	3350 2200 3600 2200
+Wire Wire Line
+	3600 2200 3750 2200
+Wire Wire Line
+	5650 3650 6100 3650
+Wire Wire Line
+	6100 3650 6400 3650
 Wire Wire Line
 	6700 3650 6900 3650
 Wire Wire Line
 	3350 2350 3350 2200
 Connection ~ 3350 2200
-Wire Wire Line
-	3050 1950 3200 1950
-Wire Wire Line
-	3200 1950 3200 2200
-Connection ~ 3200 2200
 Text HLabel 6900 3650 2    60   Input ~ 0
 Vcc
+Wire Wire Line
+	6900 3400 6100 3400
+Wire Wire Line
+	6100 3400 6100 3650
+Connection ~ 6100 3650
 $EndSCHEMATC
