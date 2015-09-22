@@ -300,10 +300,7 @@ $EndComp
 Wire Wire Line
 	4050 950  5450 950 
 Wire Wire Line
-	5350 600  5350 1100
-Wire Wire Line
 	5350 1100 5450 1100
-Connection ~ 5350 950 
 Wire Wire Line
 	5800 2400 5800 2650
 Wire Wire Line
@@ -600,99 +597,7 @@ L_Rx
 Wire Wire Line
 	6450 1400 6850 1400
 NoConn ~ 8100 5100
-$Comp
-L CONN_01X06 TP1
-U 1 1 55D23692
-P 9400 1350
-F 0 "TP1" H 9400 1700 50  0000 C CNN
-F 1 "CONN_01X06" V 9500 1350 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 9400 1350 60  0001 C CNN
-F 3 "" H 9400 1350 60  0000 C CNN
-	1    9400 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X06 TP2
-U 1 1 55D23781
-P 9450 2450
-F 0 "TP2" H 9450 2800 50  0000 C CNN
-F 1 "CONN_01X06" V 9550 2450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 9450 2450 60  0001 C CNN
-F 3 "" H 9450 2450 60  0000 C CNN
-	1    9450 2450
-	1    0    0    -1  
-$EndComp
-Text GLabel 9000 1200 0    60   Input ~ 0
-~L_SS
-Text GLabel 9000 1300 0    60   Input ~ 0
-L_SCK
-Text GLabel 9000 1400 0    60   Input ~ 0
-L_MOSI
-Text GLabel 9000 1500 0    60   Input ~ 0
-L_MISO
-$Comp
-L GND #PWR402
-U 1 1 55D23BA4
-P 8900 1700
-F 0 "#PWR402" H 8900 1450 50  0001 C CNN
-F 1 "GND" H 8900 1550 50  0000 C CNN
-F 2 "" H 8900 1700 60  0000 C CNN
-F 3 "" H 8900 1700 60  0000 C CNN
-	1    8900 1700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	9200 1600 8900 1600
-Wire Wire Line
-	8900 1600 8900 1700
-Wire Wire Line
-	9200 1500 9000 1500
-Wire Wire Line
-	9200 1400 9000 1400
-Wire Wire Line
-	9200 1300 9000 1300
-Wire Wire Line
-	9200 1200 9000 1200
-Text GLabel 9050 2300 0    60   Input ~ 0
-L_Periodic_INT
-Text GLabel 9050 2400 0    60   Input ~ 0
-L_DCF_RCPT
-Text GLabel 9050 2500 0    60   Input ~ 0
-L_Rx
-Text GLabel 9050 2600 0    60   Input ~ 0
-L_ALARM_INT
-$Comp
-L GND #PWR403
-U 1 1 55D24A11
-P 9050 2850
-F 0 "#PWR403" H 9050 2600 50  0001 C CNN
-F 1 "GND" H 9050 2700 50  0000 C CNN
-F 2 "" H 9050 2850 60  0000 C CNN
-F 3 "" H 9050 2850 60  0000 C CNN
-	1    9050 2850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9250 2700 9050 2700
-Wire Wire Line
-	9050 2700 9050 2850
-Wire Wire Line
-	9250 2600 9050 2600
-Wire Wire Line
-	9250 2500 9050 2500
-Wire Wire Line
-	9250 2400 9050 2400
-Wire Wire Line
-	9250 2300 9050 2300
-Wire Wire Line
-	9200 600  9200 1100
-Wire Wire Line
-	9750 600  9750 1950
-Wire Wire Line
-	9750 1950 9250 1950
-Wire Wire Line
-	9250 1950 9250 2200
-Connection ~ 9200 600 
-Wire Wire Line
-	5350 600  9750 600 
+	5350 1100 5350 950 
+Connection ~ 5350 950 
 $EndSCHEMATC
