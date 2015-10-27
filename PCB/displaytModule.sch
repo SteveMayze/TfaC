@@ -45,8 +45,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 2750 1800 0    60   Input ~ 0
-MISO
 Text HLabel 2750 2100 0    60   Input ~ 0
 ~SS
 Text HLabel 2750 1650 0    60   Input ~ 0
@@ -73,10 +71,10 @@ Wire Wire Line
 Wire Wire Line
 	2750 2100 3300 2100
 $Comp
-L GND #PWR301
+L GND #PWR06
 U 1 1 55F1C70D
 P 3150 2400
-F 0 "#PWR301" H 3150 2150 50  0001 C CNN
+F 0 "#PWR06" H 3150 2150 50  0001 C CNN
 F 1 "GND" H 3150 2250 50  0000 C CNN
 F 2 "" H 3150 2400 60  0000 C CNN
 F 3 "" H 3150 2400 60  0000 C CNN
@@ -89,4 +87,6 @@ Wire Wire Line
 	3150 2250 3150 2400
 Text HLabel 2750 1950 0    60   Input ~ 0
 SCK
+Text HLabel 2750 1800 0    60   Input ~ 0
+MOSI
 $EndSCHEMATC
