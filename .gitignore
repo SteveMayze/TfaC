@@ -12,4 +12,8 @@ EA/generated/*
 *.ldb
 Tfac-Symbols.dcm
 *.tiff
+<<<<<<< Updated upstream
 
+=======
+_autosave-*
+>>>>>>> Stashed changes
