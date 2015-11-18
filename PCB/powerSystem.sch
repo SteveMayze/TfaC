@@ -30,7 +30,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
-LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -48,33 +47,33 @@ $EndDescr
 $Comp
 L MCP1703T-5002E/CB U201
 U 1 1 5565D3BF
-P 5000 2000
-F 0 "U201" H 5100 1850 50  0000 C CNN
-F 1 "MCP1703T-5002E/CB" H 5000 2150 50  0000 C CNN
-F 2 "tfac-footprints:SOT-23A" H 5000 2000 60  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/22049e.pdf" H 5000 2000 60  0001 C CNN
-F 4 "MCP1703T-5002E/CB" H 5000 2000 60  0001 C CNN "MPN"
-F 5 "651424 - 62" H 5000 2000 60  0001 C CNN "ConradPN"
-	1    5000 2000
+P 5100 1600
+F 0 "U201" H 5200 1450 50  0000 C CNN
+F 1 "MCP1703T-5002E/CB" H 5100 1750 50  0000 C CNN
+F 2 "tfac-footprints:SOT-23A" H 5100 1600 60  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/22049e.pdf" H 5100 1600 60  0001 C CNN
+F 4 "MCP1703T-5002E/CB" H 5100 1600 60  0001 C CNN "MPN"
+F 5 "651424 - 62" H 5100 1600 60  0001 C CNN "ConradPN"
+	1    5100 1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND #PWR02
 U 1 1 5565D42B
-P 5000 3050
-F 0 "#PWR02" H 5000 2800 50  0001 C CNN
-F 1 "GND" H 5000 2900 50  0000 C CNN
-F 2 "" H 5000 3050 60  0000 C CNN
-F 3 "" H 5000 3050 60  0000 C CNN
-	1    5000 3050
+P 5100 2650
+F 0 "#PWR02" H 5100 2400 50  0001 C CNN
+F 1 "GND" H 5100 2500 50  0000 C CNN
+F 2 "" H 5100 2650 60  0000 C CNN
+F 3 "" H 5100 2650 60  0000 C CNN
+	1    5100 2650
 	1    0    0    -1  
 $EndComp
-Text HLabel 3750 2000 0    60   Input ~ 0
+Text HLabel 3850 1600 0    60   Input ~ 0
 Vin
 Wire Wire Line
-	3750 2000 4700 2000
+	3850 1600 4800 1600
 Wire Wire Line
-	5300 2000 6350 2000
+	5400 1600 6450 1600
 Wire Wire Line
 	5500 4000 6600 4000
 $Comp
@@ -101,13 +100,13 @@ F 3 "" H 6350 4800 60  0000 C CNN
 	1    6350 4800
 	1    0    0    -1  
 $EndComp
-Text HLabel 6350 2000 2    60   Output ~ 0
+Text HLabel 6450 1600 2    60   Output ~ 0
 Vcc
 Text HLabel 6600 4000 2    60   Output ~ 0
 Vbb
 Text HLabel 3500 4000 0    60   Input ~ 0
 Vin
-Connection ~ 5000 2950
+Connection ~ 5100 2550
 $Comp
 L GND #PWR04
 U 1 1 556C9868
@@ -157,33 +156,33 @@ Wire Wire Line
 $Comp
 L C C202
 U 1 1 556C9E21
-P 4250 2300
-F 0 "C202" H 4275 2400 50  0000 L CNN
-F 1 "1u" H 4275 2200 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 4288 2150 30  0001 C CNN
-F 3 "" H 4250 2300 60  0000 C CNN
-F 4 "Value" H 4250 2300 60  0001 C CNN "MPN"
-F 5 "Value" H 4250 2300 60  0001 C CNN "ConradPN"
-	1    4250 2300
+P 4350 1900
+F 0 "C202" H 4375 2000 50  0000 L CNN
+F 1 "1u" H 4375 1800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 4388 1750 30  0001 C CNN
+F 3 "" H 4350 1900 60  0000 C CNN
+F 4 "Value" H 4350 1900 60  0001 C CNN "MPN"
+F 5 "Value" H 4350 1900 60  0001 C CNN "ConradPN"
+	1    4350 1900
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C203
 U 1 1 556C9E5C
-P 5650 2300
-F 0 "C203" H 5675 2400 50  0000 L CNN
-F 1 "1u" H 5675 2200 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5688 2150 30  0001 C CNN
-F 3 "" H 5650 2300 60  0000 C CNN
-	1    5650 2300
+P 5750 1900
+F 0 "C203" H 5775 2000 50  0000 L CNN
+F 1 "1u" H 5775 1800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5788 1750 30  0001 C CNN
+F 3 "" H 5750 1900 60  0000 C CNN
+	1    5750 1900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5000 2200 5000 3050
+	5100 1800 5100 2650
 Wire Wire Line
-	4250 2450 4250 2950
+	4350 2050 4350 2550
 Wire Wire Line
-	5650 2950 5650 2450
+	5750 2550 5750 2050
 Connection ~ 3750 4000
 Wire Wire Line
 	3750 4000 3750 4200
@@ -212,14 +211,18 @@ $EndComp
 Wire Wire Line
 	3750 4500 3750 4800
 Wire Wire Line
-	4250 2150 4250 2000
-Connection ~ 4250 2000
+	4350 1750 4350 1600
+Connection ~ 4350 1600
 Wire Wire Line
-	5650 2150 5650 2000
-Connection ~ 5650 2000
+	5750 1750 5750 1600
+Connection ~ 5750 1600
 Wire Wire Line
 	6350 4200 6350 4000
 Connection ~ 6350 4000
 Wire Wire Line
-	4250 2950 5650 2950
+	4350 2550 5750 2550
+Text Notes 3400 3850 0    60   ~ 0
+Consider patching this to Vcc rather \nthan Vin due to power dispation \ngoing from say 7V5 Vin to \n3V3 Vbb x 15mA.
+Text Notes 4300 1300 0    60   ~ 0
+The power requirement is still not set.\nThe case may have to be changed to allow\nbetter heat disipation.
 $EndSCHEMATC
