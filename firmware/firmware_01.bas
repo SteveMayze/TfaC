@@ -29,7 +29,14 @@ $framesize = 60
 
 
 
-Config Spi = Hard , Master = Yes , Data_order = Msb         ', Noss = 1
+Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1
+
+Config Portb.1 = Output
+Dcf_ss Alias Portb.1
+
+Config Portb.2 = Output
+Display_ss Alias Portb.2
+
 Spiinit
 
 ' Timer and interrupt Configuration ==========================================
@@ -56,10 +63,6 @@ Dcf_interrupt Alias Pinc.1
 Config Pinc.2 = Input
 Dcf_alarm Alias Pinc.2
 
-Config Portb.1 = Output
-Dcf_ss Alias Portb.1
-Config Portb.2 = Output
-Display_ss Alias Portb.2
 
 
 
@@ -121,10 +124,15 @@ Time_dcf = 250
 
 ' Main Loop ===================================================================
 
+
+Set Dcf_ss
+Set Display_ss
+
 Seconds = 0
 Minutes = 6
 Hours = 18
 
+waitms 1000
 
 ' heartbeat = 1
 ' Wait 2
@@ -180,7 +188,7 @@ End
 
 Init_display:
 
-   ' Reset Display_ss
+   Reset Display_ss
    Spi_data(1) = Shutdown_register
    Spi_data(2) = Normal_mode
    Spiout Spi_data(1) , 2
@@ -240,7 +248,7 @@ Init_display:
    Spi_data(1) = Colon_addr
    Spi_data(2) = 0
    Spiout Spi_data(1) , 2
-   ' Set Display_ss
+   Set Display_ss
 
 Return
 
@@ -249,7 +257,7 @@ Return
 Write_time_to_display:
 
    ' hours 10s
-   ' Reset Display_ss
+   Reset Display_ss
    Spi_data(1) = Digit1_addr
    Spi_data(2) = Makebcd(hours)
    Shift Spi_data(2) , Right , 4
@@ -307,7 +315,7 @@ Write_time_to_display:
       Spi_data(2) = &H00
    End If
    Spiout Spi_data(1) , 2
-   ' Set Display_ss
+   Set Display_ss
 
 Return
 
