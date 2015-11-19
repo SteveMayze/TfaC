@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
+LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -73,9 +74,9 @@ Vin
 Wire Wire Line
 	3850 1600 4800 1600
 Wire Wire Line
-	5400 1600 6450 1600
+	5400 1600 7350 1600
 Wire Wire Line
-	5500 4000 6600 4000
+	5500 4000 8000 4000
 $Comp
 L C C204
 U 1 1 5565DDF6
@@ -100,9 +101,9 @@ F 3 "" H 6350 4800 60  0000 C CNN
 	1    6350 4800
 	1    0    0    -1  
 $EndComp
-Text HLabel 6450 1600 2    60   Output ~ 0
+Text HLabel 7350 1600 2    60   Output ~ 0
 Vcc
-Text HLabel 6600 4000 2    60   Output ~ 0
+Text HLabel 8000 4000 2    60   Output ~ 0
 Vbb
 Text HLabel 3500 4000 0    60   Input ~ 0
 Vin
@@ -225,4 +226,84 @@ Text Notes 3400 3850 0    60   ~ 0
 Consider patching this to Vcc rather \nthan Vin due to power dispation \ngoing from say 7V5 Vin to \n3V3 Vbb x 15mA.
 Text Notes 4300 1300 0    60   ~ 0
 The power requirement is still not set.\nThe case may have to be changed to allow\nbetter heat disipation.
+$Comp
+L LED D201
+U 1 1 564D71D7
+P 6700 2000
+F 0 "D201" H 6700 2100 50  0000 C CNN
+F 1 "LED" H 6700 1900 50  0000 C CNN
+F 2 "LEDs:LED-0805" H 6700 2000 60  0001 C CNN
+F 3 "" H 6700 2000 60  0000 C CNN
+	1    6700 2000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R202
+U 1 1 564D7317
+P 6700 2550
+F 0 "R202" V 6780 2550 50  0000 C CNN
+F 1 "480Ω" H 6500 2600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6630 2550 30  0001 C CNN
+F 3 "" H 6700 2550 30  0000 C CNN
+	1    6700 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6700 1600 6700 1800
+Connection ~ 6700 1600
+Wire Wire Line
+	6700 2200 6700 2400
+$Comp
+L GND #PWR06
+U 1 1 564D7417
+P 6700 2950
+F 0 "#PWR06" H 6700 2700 50  0001 C CNN
+F 1 "GND" H 6700 2800 50  0000 C CNN
+F 2 "" H 6700 2950 60  0000 C CNN
+F 3 "" H 6700 2950 60  0000 C CNN
+	1    6700 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6700 2700 6700 2950
+$Comp
+L LED D202
+U 1 1 564D751D
+P 7300 4600
+F 0 "D202" H 7300 4700 50  0000 C CNN
+F 1 "LED" H 7300 4500 50  0000 C CNN
+F 2 "LEDs:LED-0805" H 7300 4600 60  0001 C CNN
+F 3 "" H 7300 4600 60  0000 C CNN
+	1    7300 4600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R203
+U 1 1 564D7523
+P 7300 5150
+F 0 "R203" V 7380 5150 50  0000 C CNN
+F 1 "260Ω" H 7150 5200 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 7230 5150 30  0001 C CNN
+F 3 "" H 7300 5150 30  0000 C CNN
+	1    7300 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4000 7300 4400
+Wire Wire Line
+	7300 4800 7300 5000
+$Comp
+L GND #PWR07
+U 1 1 564D752B
+P 7300 5550
+F 0 "#PWR07" H 7300 5300 50  0001 C CNN
+F 1 "GND" H 7300 5400 50  0000 C CNN
+F 2 "" H 7300 5550 60  0000 C CNN
+F 3 "" H 7300 5550 60  0000 C CNN
+	1    7300 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 5300 7300 5550
+Connection ~ 7300 4000
 $EndSCHEMATC
