@@ -29,7 +29,7 @@ $framesize = 60
 
 
 
-Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1
+Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 
 
 Config Portb.1 = Output
 Dcf_ss Alias Portb.1
@@ -108,6 +108,7 @@ Const Signal_addr = &H06
 
 Dim Spi_data(2) As Byte
 
+
 ' Holding the values of the time as fields.
 Dim Seconds As Byte
 Dim Minutes As Byte
@@ -139,6 +140,7 @@ Hours = 18
 Heartbeat = 1
 Wait 2
 Heartbeat = 0
+Wait 2
 
 Gosub Rtc_dcf_initialisation
 
@@ -307,14 +309,14 @@ Return
 Rtc_dcf_initialisation:
    Reset Dcf_ss
 
-   Spi_data(1) = &H0A
+   Spi_data(1) = &H8A
    Spi_data(2) = &B00000000
    Spiout Spi_data(1) , 2
 
    ' Waitms 1
 
-   Spi_data(1) = &H02
-   Spi_data(2) = &B00000111
+   Spi_data(1) = &H8C
+   Spi_data(2) = &B00000010
    Spiout Spi_data(1) , 2
 
    ' Waitms 1
@@ -358,6 +360,18 @@ Read_time_from_dfc:
 '
    Reset Dcf_ss
    ' move data from the RTC to the master
+   Spi_data(1) = &HC0
+   Spi_data(2) = &B00000000
+   Spi_data(1) = Spimove(spi_data(1) , 2 )
+   Spi_data(1) = &HC1
+   Spi_data(2) = &B00000000
+   Spi_data(1) = Spimove(spi_data(1) , 2 )
+   Minute_bcd = Spi_data(2)
+   Spi_data(1) = &HC2
+   Spi_data(2) = &B00000000
+   Spi_data(1) = Spimove(spi_data(1) , 2 )
+   Hour_bcd = Spi_data(2)
+
    Set Dcf_ss
 Return
 
@@ -368,7 +382,7 @@ Delete_dcf_interrupt_flag:
 '    I2cwbyte &B00000001
 '    I2cstop
    Reset Dcf_ss
-   Spi_data(1) = &H0E
+   Spi_data(1) = &H8E
    Spi_data(2) = &B00000001
    Spiout Spi_data(1) , 2
    Set Dcf_ss
