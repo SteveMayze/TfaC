@@ -148,10 +148,6 @@ F 3 "" H 6550 3650 30  0000 C CNN
 	1    6550 3650
 	0    1    1    0   
 $EndComp
-Text GLabel 6500 1400 0    60   Input ~ 0
-Reset
-Text GLabel 6900 3400 2    60   Input ~ 0
-Reset
 $Comp
 L GND #PWR013
 U 1 1 55C0F9DC
@@ -533,4 +529,38 @@ Wire Wire Line
 	7700 2200 7700 2300
 Text Label 6000 2200 0    60   ~ 0
 Heartbeat
+Text HLabel 6900 3400 2    60   Input ~ 0
+Reset
+Text HLabel 6500 1400 0    60   Input ~ 0
+Reset
+$Comp
+L SW_PUSH SW509
+U 1 1 5660B19B
+P 6300 5250
+F 0 "SW509" H 5950 5350 50  0000 C CNN
+F 1 "Reset" H 6300 5170 50  0000 C CNN
+F 2 "tfac-footprints:PTS525SM15SMTR2LFS" H 6300 5250 60  0001 C CNN
+F 3 "" H 6300 5250 60  0000 C CNN
+	1    6300 5250
+	1    0    0    -1  
+$EndComp
+Text HLabel 5650 5250 0    60   Input ~ 0
+Reset
+Wire Wire Line
+	5650 5250 6000 5250
+$Comp
+L GND #PWR015
+U 1 1 5660B31D
+P 6800 5400
+F 0 "#PWR015" H 6800 5150 50  0001 C CNN
+F 1 "GND" H 6800 5250 50  0000 C CNN
+F 2 "" H 6800 5400 60  0000 C CNN
+F 3 "" H 6800 5400 60  0000 C CNN
+	1    6800 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 5250 6800 5250
+Wire Wire Line
+	6800 5250 6800 5400
 $EndSCHEMATC
