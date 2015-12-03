@@ -3,7 +3,7 @@
   (general
     (links 152)
     (no_connects 0)
-    (area 96.399999 64.899999 201.600001 119.100001)
+    (area 94.440438 63.8107 201.600001 120.920762)
     (thickness 1.6)
     (drawings 64)
     (tracks 457)
@@ -37,7 +37,7 @@
   )
 
   (setup
-    (last_trace_width 0.3048)
+    (last_trace_width 0.1524)
     (user_trace_width 0.3048)
     (user_trace_width 0.6096)
     (user_trace_width 1.2192)
@@ -1740,7 +1740,7 @@
   )
 
   (module tfac-footprints:sm-logo-1200 (layer F.Cu) (tedit 0) (tstamp 562FD84B)
-    (at 180.213 68.072)
+    (at 187.833 67.945)
     (fp_text reference G*** (at 0 0) (layer F.SilkS) hide
       (effects (font (thickness 0.3)))
     )
@@ -2229,7 +2229,7 @@
   (gr_text "Alarm Enable" (at 159.131 69.85) (layer F.SilkS)
     (effects (font (size 0.762 0.762) (thickness 0.127)))
   )
-  (gr_text "TfaC\nRev 2L.2.a2f0245\n" (at 200.5584 68.3768) (layer F.SilkS)
+  (gr_text "TfaC\nRev 2L.3\n" (at 200.5584 68.3768) (layer F.SilkS)
     (effects (font (size 1.27 1.27) (thickness 0.127)) (justify right))
   )
   (gr_text Vin+ (at 148.717 69.85) (layer F.SilkS) (tstamp 5601B735)
