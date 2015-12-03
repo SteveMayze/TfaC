@@ -29,13 +29,14 @@ $framesize = 60
 
 
 
-Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 
+' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
+Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40
 
-Config Portb.1 = Output
-Dcf_ss Alias Portb.1
-
-Config Portb.2 = Output
 Display_ss Alias Portb.2
+Config Display_ss = Output : Display_ss = 1
+
+Dcf_ss Alias Portb.1
+Config Dcf_ss = Output : Dcf_ss = 1
 
 Spiinit
 
@@ -46,7 +47,7 @@ Pcmsk1.0 = 1                                                ' PCINT8  - 1 Second
 Pcmsk1.1 = 1                                                ' PCINT9  - DCF message
 Pcmsk1.2 = 1                                                ' PCIN1T0 - Alarm interrupt
 
-Enable Pcint2
+Enable Pcint1
 Enable Interrupts
 
 ' I/O Configuration ===========================================================
@@ -68,11 +69,6 @@ Config Portb.0 = Output
 Heartbeat Alias Portb.0
 
 
-' RTC-DCF
-' Const Write_slaveaddress = &H02
-' Const Read_slaveaddress = &H03
-' Dim Slaveaddress As Byte
-
 
 ' Display
 
@@ -82,31 +78,27 @@ Const Intensity_med = &H07
 Const Intensity_min = &H00
 
 
-Const Shutdown_register = &H0C
+Const Power_register = &H0C
 Const Normal_mode = &H01
+Const Off_mode = &H00
 
 Const Display_test_register = &H0F
 Const Display_test_on = &H01
 Const Display_test_off = &H00
 
-
-' Scan Lmit 0xXB
-Const Scan_limit_addr = &H0B
-Const Scan_limit_value = &H05                               ' Display digits 0 1 2 3 4 5
-
-' Decode mode 0xX9
-Const Decode_mode_addr = &H09
-Const Decode_mode_value = &H0F                              ' Code B decode for digits 3-0 No decode for digits 7-4
+Const Display_blink_register = &H0D
 
 Const Digit1_addr = &H01
 Const Digit2_addr = &H02
 Const Digit3_addr = &H03
 Const Digit4_addr = &H04
 Const Colon_addr = &H05
-Const Signal_addr = &H06
+Const Display_indicators_register = &H06
 
 
 Dim Spi_data(2) As Byte
+Dim Mosi(5) As Byte
+Dim Miso(5) As Byte
 
 
 ' Holding the values of the time as fields.
@@ -117,6 +109,7 @@ Dim Hours As Byte
 Dim Hour_bcd As Byte
 Dim Minute_bcd As Byte
 Dim Second_bcd As Byte
+Dim Bcd_str As String * 10
 
 Dim Colon_enabled As Bit
 
@@ -133,13 +126,13 @@ Set Dcf_ss
 Set Display_ss
 
 Seconds = 0
-Minutes = 6
-Hours = 18
+Minutes = 20
+Hours = 13
 
 
-Heartbeat = 1
+Set Heartbeat
 Wait 2
-Heartbeat = 0
+Reset Heartbeat
 Wait 2
 
 Gosub Rtc_dcf_initialisation
@@ -159,6 +152,7 @@ Do
       If Time_dcf < 250 Then Incr Time_dcf
 
       Toggle Heartbeat
+
       Gosub Write_time_to_display
 
       New_second = 0
@@ -172,219 +166,175 @@ End
 
 ' Subroutines =================================================================
 
+
+
 Init_display:
-
+'( # Not implemeted in the display driver ... yet
    Reset Display_ss
-   Spi_data(1) = Shutdown_register
-   Spi_data(2) = Normal_mode
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Display_test_register
-   Spi_data(2) = Display_test_on
-   Spiout Spi_data(1) , 2
-   ' Set Display_ss
-
-   ' Wait 2
-
-   ' Reset Display_ss
-   Spi_data(1) = Display_test_register
-   Spi_data(2) = Display_test_off
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Intensity_register
-   Spi_data(2) = Intensity_max
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Scan_limit_addr
-   Spi_data(2) = Scan_limit_value
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Decode_mode_addr
-   Spi_data(2) = Decode_mode_value
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Signal_addr
-   Spi_data(2) = 0
-   Spiout Spi_data(1) , 2
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-   Spi_data(1) = Colon_addr
-   Spi_data(2) = 0
-   Spiout Spi_data(1) , 2
+   Mosi(1) = Power_register
+   Mosi(2) = Off_mode
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
    Set Display_ss
 
-Return
+   Wait 2
+')
+   Reset Display_ss
+   Mosi(1) = Power_register
+   Mosi(2) = Normal_mode
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
 
+   Waitus 50
+
+   Reset Display_ss
+   Mosi(1) = Display_test_register
+   Mosi(2) = Display_test_on
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+   Waitus 50
+
+   Reset Display_ss
+   Mosi(1) = Display_test_register
+   Mosi(2) = Display_test_off
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+   Waitus 50
+
+   Reset Display_ss
+   Mosi(1) = Colon_addr
+   Mosi(2) = &H01                                           ' Enabled
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+   Waitus 50
+
+   Reset Display_ss
+   Mosi(1) = Display_indicators_register
+   Mosi(2) = &H00
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+   Waitus 50
+
+   Reset Display_ss
+   Mosi(1) = Display_blink_register
+   Mosi(2) = &B00010000                                     ' Blink the colon
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+
+
+
+Return
 
 
 Write_time_to_display:
 
-   ' hours 10s
    Reset Display_ss
+   ' hours 10s
    Spi_data(1) = Digit1_addr
    Spi_data(2) = Makebcd(hours)
    Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 2
+   Spiout Spi_data(1) , 1
+   Spiout Spi_data(2) , 1
+   Set Display_ss
 
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
+   Waitus 50
 
    ' hours units
+   Reset Display_ss
    Spi_data(1) = Digit2_addr
    Spi_data(2) = Makebcd(hours)
    Shift Spi_data(2) , Left , 4
    Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 2
+   Spiout Spi_data(1) , 1
+   Spiout Spi_data(2) , 1
+   Set Display_ss
 
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
+   Waitus 50
 
    ' Minutes 10s
+   Reset Display_ss
    Spi_data(1) = Digit3_addr
    Spi_data(2) = Makebcd(minutes)
    Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 2
+   Spiout Spi_data(1) , 1
+   Spiout Spi_data(2) , 1
+   Set Display_ss
 
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
+   Waitus 50
 
    ' Minutes units
+   Reset Display_ss
    Spi_data(1) = Digit4_addr
    Spi_data(2) = Makebcd(minutes)
    Shift Spi_data(2) , Left , 4
    Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 2
-
-
-   ' Set Display_ss
-   ' Waitms 1
-   ' Reset Display_ss
-
-
-
-   Spi_data(1) = Colon_addr
-   If Colon_enabled = 1 Then
-      Spi_data(2) = &B01100000
-   Else
-      Spi_data(2) = &H00
-   End If
-   Spiout Spi_data(1) , 2
+   Spiout Spi_data(1) , 1
+   Spiout Spi_data(2) , 1
    Set Display_ss
 
 Return
 
 
+
 Rtc_dcf_initialisation:
    Reset Dcf_ss
-
-   Spi_data(1) = &H8A
-   Spi_data(2) = &B00000000
-   Spiout Spi_data(1) , 2
-
-   ' Waitms 1
-
-   Spi_data(1) = &H8C
-   Spi_data(2) = &B00000010
-   Spiout Spi_data(1) , 2
-
-   ' Waitms 1
-
+   Mosi(1) = &H0A                                           ' Bulk write, starting at register &H0A
+   Mosi(2) = &B00000000                                     ' Periodic interupt 1Hz - Register &H0A
+   Mosi(3) = &B00000000                                     ' No alarm - Register &H0B
+   Mosi(4) = &B00000010                                     ' Enable the periodic interrupt - Register &H0C
+   Mosi(5) = &B00000111                                     ' Enable the DCF interrup - Register &H0D
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Spiout Mosi(3) , 1
+   Spiout Mosi(4) , 1
+   Spiout Mosi(5) , 1
    Set Dcf_ss
-
-
-
 Return
-
-
-
-' Write_time_to_dfc:
-'    Hour_bcd = Makebcd(hours)
-'    Minute_bcd = Makebcd(minutes)
-'    Second_bcd = 0
-'    I2cstart
-'    I2cwbyte Write_slaveaddress
-'    I2cwbyte &H00
-'    I2cwbyte Second_bcd
-'    I2cwbyte Minute_bcd
-'    I2cwbyte Hour_bcd
-'    I2cstop
-' Return
 
 
 Read_time_from_dfc:
-'    I2cstart
-'    I2cwbyte Write_slaveaddress
-'    I2cwbyte &H00
-'    I2cstart
-'    I2cwbyte Read_slaveaddress
-'    I2crbyte Second_bcd , Ack
-'    I2crbyte Minute_bcd , Ack
-'    I2crbyte Hour_bcd , Nack
-'    I2cstop
-'
-'    Hours = Makedec(hour_bcd)
-'    Minutes = Makedec(minute_bcd)
-'    Seconds = Makedec(second_bcd)
-'
+
    Reset Dcf_ss
-   ' move data from the RTC to the master
-   Spi_data(1) = &HC0
-   Spi_data(2) = &B00000000
-   Spi_data(1) = Spimove(spi_data(1) , 2 )
-   Spi_data(1) = &HC1
-   Spi_data(2) = &B00000000
-   Spi_data(1) = Spimove(spi_data(1) , 2 )
-   Minute_bcd = Spi_data(2)
-   Spi_data(1) = &HC2
-   Spi_data(2) = &B00000000
-   Spi_data(1) = Spimove(spi_data(1) , 2 )
-   Hour_bcd = Spi_data(2)
+
+
+   Mosi(1) = &H40                                           ' Burst read, starting from register &H00 (Seconds)
+   Mosi(2) = &HC1
+   Mosi(3) = &HC2
+   Mosi(4) = &HC3
+
+   Spiout Mosi(1) , 1
+   Spiin Miso(1) , 1
+   Spiin Miso(2) , 1
+   Spiin Miso(3) , 1
+
+   Second_bcd = Miso(1)                                     'And &B01111111
+   Minute_bcd = Miso(2)                                     'And &B01111111
+   Hour_bcd = Miso(3)                                       'And &B01111111
 
    Set Dcf_ss
+
+   Hours = Makedec(hour_bcd)
+   Minutes = Makedec(minute_bcd)
+   Seconds = Makedec(second_bcd)
+
 Return
 
 Delete_dcf_interrupt_flag:
-'    I2cstart
-'    I2cwbyte Write_slaveaddress
-'    I2cwbyte &H0E
-'    I2cwbyte &B00000001
-'    I2cstop
    Reset Dcf_ss
-   Spi_data(1) = &H8E
-   Spi_data(2) = &B00000001
-   Spiout Spi_data(1) , 2
+   Mosi(1) = &H8E
+   Mosi(2) = &B00000001
+   Spiout Mosi(1) , 2
    Set Dcf_ss
 Return
 
