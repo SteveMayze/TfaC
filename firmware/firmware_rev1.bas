@@ -20,7 +20,7 @@
 ' ============================================================================
 
 $crystal = 1000000
-$regfile = "m88def.dat"
+$regfile = "m88pdef.dat"
 $hwstack = 40
 $swstack = 40
 $framesize = 60
@@ -30,7 +30,7 @@ $framesize = 60
 
 
 ' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
-Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40
+Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Polarity = Low , Phase = 1
 
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
@@ -116,7 +116,7 @@ Dim Bcd_str As String * 10
 
 Dim Colon_enabled As Bit
 
-Dim dcf_time As Byte
+Dim Dcf_time As Byte
 Dcf_time = 250
 
 
