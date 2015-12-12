@@ -1,4 +1,4 @@
-update=22/08/2015 11:17:53
+update=Thu 03 Dec 2015 09:52:17 PM CET
 version=1
 last_client=kicad
 [cvpcb]
@@ -14,8 +14,6 @@ NetFmtName=
 SpiceForceRefPrefix=0
 SpiceUseNetNumbers=0
 LabSize=60
-[general]
-version=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
@@ -71,3 +69,5 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=lib/Tfac-Symbols
+[general]
+version=1

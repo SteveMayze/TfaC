@@ -30,7 +30,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
-LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -59,10 +58,10 @@ $EndComp
 Text HLabel 4050 950  0    60   Input ~ 0
 Vbb
 $Comp
-L GND #PWR06
+L GND #PWR09
 U 1 1 5570847C
 P 5800 2650
-F 0 "#PWR06" H 5800 2400 50  0001 C CNN
+F 0 "#PWR09" H 5800 2400 50  0001 C CNN
 F 1 "GND" H 5800 2500 50  0000 C CNN
 F 2 "" H 5800 2650 60  0000 C CNN
 F 3 "" H 5800 2650 60  0000 C CNN
@@ -300,10 +299,7 @@ $EndComp
 Wire Wire Line
 	4050 950  5450 950 
 Wire Wire Line
-	5350 600  5350 1100
-Wire Wire Line
 	5350 1100 5450 1100
-Connection ~ 5350 950 
 Wire Wire Line
 	5800 2400 5800 2650
 Wire Wire Line
@@ -543,13 +539,13 @@ Text GLabel 7500 4950 3    60   Input ~ 0
 L_Rx
 Text GLabel 8350 4950 3    60   Input ~ 0
 L_ALARM_INT
-Text GLabel 5000 1700 0    60   Input ~ 0
+Text GLabel 6850 1700 2    60   Input ~ 0
 L_MISO
-Text GLabel 5000 1550 0    60   Input ~ 0
+Text GLabel 6850 1550 2    60   Input ~ 0
 L_MOSI
-Text GLabel 5000 1400 0    60   Input ~ 0
+Text GLabel 6850 1400 2    60   Input ~ 0
 L_SCK
-Text GLabel 5000 1250 0    60   Input ~ 0
+Text GLabel 6850 1250 2    60   Input ~ 0
 ~L_SS
 Text Notes 1250 1600 0    60   ~ 0
 The RTC-DCF77 is a pre-fabricated module \nthat has two 6 contact pin headers each end. \nThis does not need any representation here \nwith respect to connectors.\n\nThis will be modelled in the foot print as two 6-pole \nthrough hole connectors\n
@@ -583,116 +579,24 @@ Text HLabel 9100 5750 2    60   Input ~ 0
 MISO
 Wire Wire Line
 	6300 5750 9100 5750
-Text GLabel 6850 1100 2    60   Input ~ 0
+Text GLabel 5000 1250 0    60   Input ~ 0
 L_Periodic_INT
-Text GLabel 6850 1250 2    60   Input ~ 0
+Text GLabel 5000 1400 0    60   Input ~ 0
 L_DCF_RCPT
-Text GLabel 6850 1550 2    60   Input ~ 0
+Text GLabel 5000 1700 0    60   Input ~ 0
 L_ALARM_INT
-Wire Wire Line
-	6450 1100 6850 1100
 Wire Wire Line
 	6450 1250 6850 1250
 Wire Wire Line
 	6450 1550 6850 1550
-Text GLabel 6850 1400 2    60   Input ~ 0
+Text GLabel 5000 1550 0    60   Input ~ 0
 L_Rx
 Wire Wire Line
 	6450 1400 6850 1400
 NoConn ~ 8100 5100
-$Comp
-L CONN_01X06 TP1
-U 1 1 55D23692
-P 9400 1350
-F 0 "TP1" H 9400 1700 50  0000 C CNN
-F 1 "CONN_01X06" V 9500 1350 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 9400 1350 60  0001 C CNN
-F 3 "" H 9400 1350 60  0000 C CNN
-	1    9400 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_01X06 TP2
-U 1 1 55D23781
-P 9450 2450
-F 0 "TP2" H 9450 2800 50  0000 C CNN
-F 1 "CONN_01X06" V 9550 2450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 9450 2450 60  0001 C CNN
-F 3 "" H 9450 2450 60  0000 C CNN
-	1    9450 2450
-	1    0    0    -1  
-$EndComp
-Text GLabel 9000 1200 0    60   Input ~ 0
-~L_SS
-Text GLabel 9000 1300 0    60   Input ~ 0
-L_SCK
-Text GLabel 9000 1400 0    60   Input ~ 0
-L_MOSI
-Text GLabel 9000 1500 0    60   Input ~ 0
-L_MISO
-$Comp
-L GND #PWR07
-U 1 1 55D23BA4
-P 8900 1700
-F 0 "#PWR07" H 8900 1450 50  0001 C CNN
-F 1 "GND" H 8900 1550 50  0000 C CNN
-F 2 "" H 8900 1700 60  0000 C CNN
-F 3 "" H 8900 1700 60  0000 C CNN
-	1    8900 1700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	9200 1600 8900 1600
+	5350 1100 5350 950 
+Connection ~ 5350 950 
 Wire Wire Line
-	8900 1600 8900 1700
-Wire Wire Line
-	9200 1500 9000 1500
-Wire Wire Line
-	9200 1400 9000 1400
-Wire Wire Line
-	9200 1300 9000 1300
-Wire Wire Line
-	9200 1200 9000 1200
-Text GLabel 9050 2300 0    60   Input ~ 0
-L_Periodic_INT
-Text GLabel 9050 2400 0    60   Input ~ 0
-L_DCF_RCPT
-Text GLabel 9050 2500 0    60   Input ~ 0
-L_Rx
-Text GLabel 9050 2600 0    60   Input ~ 0
-L_ALARM_INT
-$Comp
-L GND #PWR08
-U 1 1 55D24A11
-P 9050 2850
-F 0 "#PWR08" H 9050 2600 50  0001 C CNN
-F 1 "GND" H 9050 2700 50  0000 C CNN
-F 2 "" H 9050 2850 60  0000 C CNN
-F 3 "" H 9050 2850 60  0000 C CNN
-	1    9050 2850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9250 2700 9050 2700
-Wire Wire Line
-	9050 2700 9050 2850
-Wire Wire Line
-	9250 2600 9050 2600
-Wire Wire Line
-	9250 2500 9050 2500
-Wire Wire Line
-	9250 2400 9050 2400
-Wire Wire Line
-	9250 2300 9050 2300
-Wire Wire Line
-	9200 600  9200 1100
-Wire Wire Line
-	9750 600  9750 1950
-Wire Wire Line
-	9750 1950 9250 1950
-Wire Wire Line
-	9250 1950 9250 2200
-Connection ~ 9200 600 
-Wire Wire Line
-	5350 600  9750 600 
+	6850 1700 6450 1700
 $EndSCHEMATC

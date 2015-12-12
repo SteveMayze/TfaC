@@ -11,3 +11,6 @@ EA/generated/*
 *.ldb
 Tfac-Symbols.dcm
 *.tiff
+_autosave-*
+*.bin
+*.hex
