@@ -1,12 +1,12 @@
-(kicad_pcb (version 4) (host pcbnew 4.0.0-stable)
+(kicad_pcb (version 4) (host pcbnew 4.0.1-2.201512121406+6195~38~ubuntu14.04.1-stable)
 
   (general
     (links 154)
-    (no_connects 1)
-    (area 96.399999 64.899999 201.600001 119.100001)
+    (no_connects 0)
+    (area 94.440438 63.8107 201.600001 120.920762)
     (thickness 1.6)
     (drawings 64)
-    (tracks 457)
+    (tracks 458)
     (zones 0)
     (modules 59)
     (nets 36)
@@ -37,7 +37,7 @@
   )
 
   (setup
-    (last_trace_width 0.1524)
+    (last_trace_width 0.6096)
     (user_trace_width 0.3048)
     (user_trace_width 0.6096)
     (user_trace_width 1.2192)
@@ -2670,6 +2670,7 @@
   (segment (start 178.162 93.364) (end 176.149 95.377) (width 0.3048) (layer F.Cu) (net 33) (tstamp 564D7544))
   (segment (start 176.149 101.63302) (end 174.19702 101.63302) (width 0.6096) (layer F.Cu) (net 34))
   (segment (start 174.19702 101.63302) (end 173.99 101.426) (width 0.6096) (layer F.Cu) (net 34) (tstamp 564D754D))
+  (segment (start 159.791 116.454) (end 153.391 116.454) (width 0.6096) (layer F.Cu) (net 35) (status C00000))
   (segment (start 159.791 116.454) (end 165.486 116.454) (width 0.3048) (layer F.Cu) (net 35))
   (segment (start 174.625 107.315) (end 175.895 107.315) (width 0.3048) (layer F.Cu) (net 35) (tstamp 5660A909))
   (segment (start 165.486 116.454) (end 174.625 107.315) (width 0.3048) (layer F.Cu) (net 35) (tstamp 5660A8F5))
