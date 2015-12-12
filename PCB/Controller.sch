@@ -30,7 +30,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
-LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -533,17 +532,6 @@ Text HLabel 6900 3400 2    60   Input ~ 0
 Reset
 Text HLabel 6500 1400 0    60   Input ~ 0
 Reset
-$Comp
-L SW_PUSH SW509
-U 1 1 5660B19B
-P 6300 5250
-F 0 "SW509" H 5950 5350 50  0000 C CNN
-F 1 "Reset" H 6300 5170 50  0000 C CNN
-F 2 "tfac-footprints:PTS525SM15SMTR2LFS" H 6300 5250 60  0001 C CNN
-F 3 "" H 6300 5250 60  0000 C CNN
-	1    6300 5250
-	1    0    0    -1  
-$EndComp
 Text HLabel 5650 5250 0    60   Input ~ 0
 Reset
 Wire Wire Line
@@ -560,7 +548,28 @@ F 3 "" H 6800 5400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6600 5250 6800 5250
+	6500 5250 6800 5250
 Wire Wire Line
 	6800 5250 6800 5400
+$Comp
+L TL3315NF160Q SW509
+U 1 1 566C6130
+P 6250 5350
+F 0 "SW509" V 6400 5350 60  0000 C CNN
+F 1 "Reset" V 6100 5350 60  0000 C CNN
+F 2 "tfac-footprints:PTS525SM15SMTR2LFS" H 6250 5300 60  0001 C CNN
+F 3 "" H 6250 5300 60  0000 C CNN
+	1    6250 5350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5900 5250 5900 5450
+Wire Wire Line
+	5900 5450 6000 5450
+Connection ~ 5900 5250
+Wire Wire Line
+	6500 5450 6600 5450
+Wire Wire Line
+	6600 5450 6600 5250
+Connection ~ 6600 5250
 $EndSCHEMATC
