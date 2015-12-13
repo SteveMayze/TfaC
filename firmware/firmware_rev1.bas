@@ -30,7 +30,7 @@ $framesize = 60
 
 
 ' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
-Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Polarity = Low , Phase = 1
+Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
 
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
@@ -144,14 +144,17 @@ Gosub Init_display
 
 Do
    If New_second = 1 Then
-      Gosub Read_time_from_dfc
-      If Dcf_time = 0 Then
-         Set Dcf_received : Waitms 500 : Reset Dcf_received
-         Gosub Delete_dcf_interrupt_flag
-      End If
+      'If Dcf_time = 0 Then
+         'Set Dcf_received : Waitms 500 : Reset Dcf_received
+         ' Gosub Delete_dcf_interrupt_flag
+      'End If
       If Dcf_time < 250 Then Incr Dcf_time
       Toggle Heartbeat
+      Disable Pcint1
+      Gosub Read_time_from_dfc
       Gosub Write_time_to_display
+      Gosub Delete_dcf_interrupt_flag
+      Enable Pcint1
       New_second = 0
    End If
 Loop
@@ -217,10 +220,6 @@ Init_display:
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
    Set Display_ss
-
-
-
-
 Return
 
 
@@ -320,7 +319,7 @@ Return
 Delete_dcf_interrupt_flag:
    Reset Dcf_ss
    Mosi(1) = &H8E
-   Mosi(2) = &B00000001
+   Mosi(2) = &B00000011
    Spiout Mosi(1) , 2
    Set Dcf_ss
 Return
