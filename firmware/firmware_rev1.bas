@@ -56,7 +56,6 @@ Enable Interrupts
 
 Config Pinc.0 = Input
 Second_interrupt Alias Pinc.0
-Dim New_second As Bit
 
 Config Pinc.1 = Input
 Dcf_interrupt Alias Pinc.1
@@ -117,7 +116,9 @@ Dim Bcd_str As String * 10
 Dim Colon_enabled As Bit
 
 Dim Dcf_time As Byte
-Dcf_time = 250
+Dcf_time = 1
+Dim Periodic_int As Bit
+Periodic_int = 0
 
 
 
@@ -143,23 +144,23 @@ Gosub Rtc_dcf_initialisation
 Gosub Init_display
 
 Do
-   If New_second = 1 Then
-      'If Dcf_time = 0 Then
-         'Set Dcf_received : Waitms 500 : Reset Dcf_received
-         ' Gosub Delete_dcf_interrupt_flag
-      'End If
+   If Periodic_int = 1 Then
+      If Dcf_time = 0 Then
+         ' Set Dcf_received : Waitms 500 : Reset Dcf_received
+         Gosub Delete_dcf_interrupt_flag
+      End If
       If Dcf_time < 250 Then Incr Dcf_time
+
       Toggle Heartbeat
       Disable Pcint1
       Gosub Read_time_from_dfc
       Gosub Write_time_to_display
-      Gosub Delete_dcf_interrupt_flag
       Enable Pcint1
-      New_second = 0
+      ' Gosub Delete_periodic_interrupt_flag
+      Periodic_int = 0
    End If
 Loop
 End
-
 
 
 
@@ -319,7 +320,15 @@ Return
 Delete_dcf_interrupt_flag:
    Reset Dcf_ss
    Mosi(1) = &H8E
-   Mosi(2) = &B00000011
+   Mosi(2) = &B00000001
+   Spiout Mosi(1) , 2
+   Set Dcf_ss
+Return
+
+Delete_periodic_interrupt_flag:
+   Reset Dcf_ss
+   Mosi(1) = &H8E
+   Mosi(2) = &B00000010
    Spiout Mosi(1) , 2
    Set Dcf_ss
 Return
@@ -329,6 +338,6 @@ Return
 
 
 Pcint1_isr:
-   If Second_interrupt = 0 Then New_second = 1
+   If Periodic_int = 0 Then Periodic_int = 1
    If Dcf_interrupt = 0 Then Dcf_time = 0
 Return
