@@ -29,7 +29,7 @@ $framesize = 60
 
 
 
-' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
+'' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
 Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
 
 Display_ss Alias Portb.2
@@ -98,7 +98,7 @@ Const Colon_addr = &H05
 Const Display_indicators_register = &H06
 
 
-Dim Spi_data(2) As Byte
+' Dim Spi_data(2) As Byte
 Dim Mosi(5) As Byte
 Dim Miso(5) As Byte
 
@@ -115,6 +115,8 @@ Dim Bcd_str As String * 10
 
 Dim Colon_enabled As Bit
 
+Dim Interrupt_fired As Bit
+Interrupt_fired = 0
 Dim Dcf_time As Byte
 Dcf_time = 1
 Dim Periodic_int As Bit
@@ -144,20 +146,22 @@ Gosub Rtc_dcf_initialisation
 Gosub Init_display
 
 Do
-   If Periodic_int = 1 Then
+   If Interrupt_fired = 1 Then
       If Dcf_time = 0 Then
-         ' Set Dcf_received : Waitms 500 : Reset Dcf_received
+         ' Waitms 500
          Gosub Delete_dcf_interrupt_flag
       End If
       If Dcf_time < 250 Then Incr Dcf_time
-
-      Toggle Heartbeat
-      Disable Pcint1
-      Gosub Read_time_from_dfc
-      Gosub Write_time_to_display
-      Enable Pcint1
-      ' Gosub Delete_periodic_interrupt_flag
-      Periodic_int = 0
+      If Periodic_int = 1 Then
+         Toggle Heartbeat
+         Disable Pcint1
+         Gosub Read_time_from_dfc
+         ' Waitms 250
+         Gosub Write_time_to_display
+         Enable Pcint1
+         Periodic_int = 0
+      End If
+      Interrupt_fired = 0
    End If
 Loop
 End
@@ -227,47 +231,58 @@ Return
 Write_time_to_display:
 
    Reset Display_ss
-   ' hours 10s
-   Spi_data(1) = Digit1_addr
-   Spi_data(2) = Makebcd(hours)
-   Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 1
-   Spiout Spi_data(2) , 1
+   Waitus 50
+   '( Mosi(1) = &HFF
+   Mosi(2) = &HFF
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
    Set Display_ss
 
-   Waitus 50
+   Reset Display_ss
+')
+
+   ' hours 10s
+   Mosi(1) = Digit1_addr
+   Mosi(2) = Makebcd(hours)
+   Shift Mosi(2) , Right , 4
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Display_ss
+
+   'Waitus 50
 
    ' hours units
    Reset Display_ss
-   Spi_data(1) = Digit2_addr
-   Spi_data(2) = Makebcd(hours)
-   Shift Spi_data(2) , Left , 4
-   Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 1
-   Spiout Spi_data(2) , 1
+   Mosi(1) = Digit2_addr
+   Mosi(2) = Makebcd(hours)
+   Shift Mosi(2) , Left , 4
+   Shift Mosi(2) , Right , 4
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
    Set Display_ss
 
-   Waitus 50
+   'Waitus 50
 
    ' Minutes 10s
    Reset Display_ss
-   Spi_data(1) = Digit3_addr
-   Spi_data(2) = Makebcd(minutes)
-   Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 1
-   Spiout Spi_data(2) , 1
+   Mosi(1) = Digit3_addr
+   Mosi(2) = Makebcd(minutes)
+   Shift Mosi(2) , Right , 4
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
    Set Display_ss
 
-   Waitus 50
+   'Waitus 50
 
    ' Minutes units
    Reset Display_ss
-   Spi_data(1) = Digit4_addr
-   Spi_data(2) = Makebcd(minutes)
-   Shift Spi_data(2) , Left , 4
-   Shift Spi_data(2) , Right , 4
-   Spiout Spi_data(1) , 1
-   Spiout Spi_data(2) , 1
+   Mosi(1) = Digit4_addr
+   Mosi(2) = Makebcd(minutes)
+   Shift Mosi(2) , Left , 4
+   Shift Mosi(2) , Right , 4
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   waitus 50
    Set Display_ss
 
 Return
@@ -328,7 +343,7 @@ Return
 Delete_periodic_interrupt_flag:
    Reset Dcf_ss
    Mosi(1) = &H8E
-   Mosi(2) = &B00000010
+   Mosi(2) = &B0000010
    Spiout Mosi(1) , 2
    Set Dcf_ss
 Return
@@ -338,6 +353,7 @@ Return
 
 
 Pcint1_isr:
-   If Periodic_int = 0 Then Periodic_int = 1
+   Interrupt_fired = 1
+   If Second_interrupt = 0 Then Periodic_int = 1
    If Dcf_interrupt = 0 Then Dcf_time = 0
 Return
