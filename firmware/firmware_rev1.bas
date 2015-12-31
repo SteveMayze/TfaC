@@ -74,28 +74,28 @@ Config Dcf_received = Output : Dcf_received = 0
 
 ' Display
 
-Const Intensity_register = &H0A
+Const Digit1_addr = &H81
+Const Digit2_addr = &H82
+Const Digit3_addr = &H83
+Const Digit4_addr = &H84
+Const Colon_addr = &H85
+
+Const Display_indicators_register = &H86
+
+Const Intensity_register = &H8A
 Const Intensity_max = &H0F
 Const Intensity_med = &H07
 Const Intensity_min = &H00
 
-
-Const Power_register = &H0C
+Const Power_register = &H8C
 Const Normal_mode = &H01
 Const Off_mode = &H00
 
-Const Display_test_register = &H0F
+Const Display_blink_register = &H8D
+
+Const Display_test_register = &H8F
 Const Display_test_on = &H01
 Const Display_test_off = &H00
-
-Const Display_blink_register = &H0D
-
-Const Digit1_addr = &H01
-Const Digit2_addr = &H02
-Const Digit3_addr = &H03
-Const Digit4_addr = &H04
-Const Colon_addr = &H05
-Const Display_indicators_register = &H06
 
 
 ' Dim Spi_data(2) As Byte
@@ -282,7 +282,7 @@ Write_time_to_display:
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
-   waitus 50
+   Waitus 50
    Set Display_ss
 
 Return
