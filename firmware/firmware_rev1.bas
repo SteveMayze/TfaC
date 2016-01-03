@@ -35,8 +35,8 @@ Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
 
-Dcf_ss Alias Portb.1
-Config Dcf_ss = Output : Dcf_ss = 1
+Dfc_ss Alias Portb.1
+Config Dfc_ss = Output : Dfc_ss = 1
 
 Spiinit
 
@@ -58,16 +58,16 @@ Config Pinc.0 = Input
 Second_interrupt Alias Pinc.0
 
 Config Pinc.1 = Input
-Dcf_interrupt Alias Pinc.1
+Dfc_interrupt Alias Pinc.1
 
 Config Pinc.2 = Input
-Dcf_alarm Alias Pinc.2
+Dfc_alarm Alias Pinc.2
 
 
 Heartbeat Alias Portb.0
 Config Heartbeat = Output : Heartbeat = 0
-Dcf_received Alias Portd.7
-Config Dcf_received = Output : Dcf_received = 0
+Dfc_received Alias Portd.7
+Config Dfc_received = Output : Dfc_received = 0
 
 
 
@@ -117,8 +117,8 @@ Dim Colon_enabled As Bit
 
 Dim Interrupt_fired As Bit
 Interrupt_fired = 0
-Dim Dcf_time As Byte
-Dcf_time = 1
+Dim Dfc_time As Byte
+Dfc_time = 250
 Dim Periodic_int As Bit
 Periodic_int = 0
 
@@ -128,7 +128,7 @@ Periodic_int = 0
 
 
 ' Bring the slave select lines high.
-Set Dcf_ss
+Set Dfc_ss
 Set Display_ss
 
 Seconds = 0
@@ -141,27 +141,39 @@ Wait 2
 Reset Heartbeat
 Wait 2
 
-Gosub Rtc_dcf_initialisation
+Gosub Rtc_dfc_initialisation
 
 Gosub Init_display
 
 Do
    If Interrupt_fired = 1 Then
-      If Dcf_time = 0 Then
-         ' Waitms 500
-         Gosub Delete_dcf_interrupt_flag
-      End If
-      If Dcf_time < 250 Then Incr Dcf_time
+      Interrupt_fired = 0
       If Periodic_int = 1 Then
+         Periodic_int = 0
          Toggle Heartbeat
          Disable Pcint1
          Gosub Read_time_from_dfc
-         ' Waitms 250
+         Waitms 50
          Gosub Write_time_to_display
          Enable Pcint1
-         Periodic_int = 0
+
+         If Dfc_time = 0 Then
+            Gosub Delete_dfc_interrupt_flag
+            Set Dfc_received
+            Waitms 250
+            Reset Dfc_received
+            ' Gosub Read_time_from_dfc
+         End If
+         If Dfc_time < 250 Then Incr Dfc_time
+         If Dfc_time < 240 Then                             ' Time since last DFC
+            Reset Dfc_received
+         Else
+            Set Dfc_received
+         End If
+
+         ' If Dcf_time < 240 Then Toggle  Dcf_received
+
       End If
-      Interrupt_fired = 0
    End If
 Loop
 End
@@ -289,8 +301,8 @@ Return
 
 
 
-Rtc_dcf_initialisation:
-   Reset Dcf_ss
+Rtc_dfc_initialisation:
+   Reset Dfc_ss
    Mosi(1) = &H0A                                           ' Bulk write, starting at register &H0A
    Mosi(2) = &B00000000                                     ' Periodic interupt 1Hz - Register &H0A
    Mosi(3) = &B00000000                                     ' No alarm - Register &H0B
@@ -301,13 +313,13 @@ Rtc_dcf_initialisation:
    Spiout Mosi(3) , 1
    Spiout Mosi(4) , 1
    Spiout Mosi(5) , 1
-   Set Dcf_ss
+   Set Dfc_ss
 Return
 
 
 Read_time_from_dfc:
 
-   Reset Dcf_ss
+   Reset Dfc_ss
 
 
    Mosi(1) = &H40                                           ' Burst read, starting from register &H00 (Seconds)
@@ -324,7 +336,7 @@ Read_time_from_dfc:
    Minute_bcd = Miso(2)                                     'And &B01111111
    Hour_bcd = Miso(3)                                       'And &B01111111
 
-   Set Dcf_ss
+   Set Dfc_ss
 
    Hours = Makedec(hour_bcd)
    Minutes = Makedec(minute_bcd)
@@ -332,20 +344,20 @@ Read_time_from_dfc:
 
 Return
 
-Delete_dcf_interrupt_flag:
-   Reset Dcf_ss
+Delete_dfc_interrupt_flag:
+   Reset Dfc_ss
    Mosi(1) = &H8E
    Mosi(2) = &B00000001
    Spiout Mosi(1) , 2
-   Set Dcf_ss
+   Set Dfc_ss
 Return
 
 Delete_periodic_interrupt_flag:
-   Reset Dcf_ss
+   Reset Dfc_ss
    Mosi(1) = &H8E
    Mosi(2) = &B0000010
    Spiout Mosi(1) , 2
-   Set Dcf_ss
+   Set Dfc_ss
 Return
 
 
@@ -355,5 +367,5 @@ Return
 Pcint1_isr:
    Interrupt_fired = 1
    If Second_interrupt = 0 Then Periodic_int = 1
-   If Dcf_interrupt = 0 Then Dcf_time = 0
+   If Dfc_interrupt = 0 Then Dfc_time = 0
 Return
