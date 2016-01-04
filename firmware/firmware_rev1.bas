@@ -27,16 +27,14 @@ $framesize = 60
 
 ' $baud = 4800
 
-
-
-'' Config Spi = Hard , Master = Yes , Data_order = Msb , Noss = 1 , Spiin = 255
-Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
-
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
 
 Dfc_ss Alias Portb.1
 Config Dfc_ss = Output : Dfc_ss = 1
+
+Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
+
 
 Spiinit
 
@@ -98,7 +96,6 @@ Const Display_test_on = &H01
 Const Display_test_off = &H00
 
 
-' Dim Spi_data(2) As Byte
 Dim Mosi(5) As Byte
 Dim Miso(5) As Byte
 
@@ -107,11 +104,6 @@ Dim Miso(5) As Byte
 Dim Seconds As Byte
 Dim Minutes As Byte
 Dim Hours As Byte
-
-Dim Hour_bcd As Byte
-Dim Minute_bcd As Byte
-Dim Second_bcd As Byte
-Dim Bcd_str As String * 10
 
 Dim Colon_enabled As Bit
 
@@ -162,7 +154,6 @@ Do
             Set Dfc_received
             Waitms 250
             Reset Dfc_received
-            ' Gosub Read_time_from_dfc
          End If
          If Dfc_time < 250 Then Incr Dfc_time
          If Dfc_time < 240 Then                             ' Time since last DFC
@@ -170,9 +161,6 @@ Do
          Else
             Set Dfc_received
          End If
-
-         ' If Dcf_time < 240 Then Toggle  Dcf_received
-
       End If
    End If
 Loop
@@ -244,52 +232,38 @@ Write_time_to_display:
 
    Reset Display_ss
    Waitus 50
-   '( Mosi(1) = &HFF
-   Mosi(2) = &HFF
-   Spiout Mosi(1) , 1
-   Spiout Mosi(2) , 1
-   Set Display_ss
-
-   Reset Display_ss
-')
 
    ' hours 10s
    Mosi(1) = Digit1_addr
-   Mosi(2) = Makebcd(hours)
+   Mosi(2) = Hours
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
    Set Display_ss
 
-   'Waitus 50
-
    ' hours units
    Reset Display_ss
    Mosi(1) = Digit2_addr
-   Mosi(2) = Makebcd(hours)
+   Mosi(2) = Hours
    Shift Mosi(2) , Left , 4
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
    Set Display_ss
 
-   'Waitus 50
-
    ' Minutes 10s
    Reset Display_ss
    Mosi(1) = Digit3_addr
-   Mosi(2) = Makebcd(minutes)
+   Mosi(2) = Minutes
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
    Set Display_ss
 
-   'Waitus 50
-
    ' Minutes units
    Reset Display_ss
    Mosi(1) = Digit4_addr
-   Mosi(2) = Makebcd(minutes)
+   Mosi(2) = Minutes
    Shift Mosi(2) , Left , 4
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
@@ -332,15 +306,11 @@ Read_time_from_dfc:
    Spiin Miso(2) , 1
    Spiin Miso(3) , 1
 
-   Second_bcd = Miso(1)                                     'And &B01111111
-   Minute_bcd = Miso(2)                                     'And &B01111111
-   Hour_bcd = Miso(3)                                       'And &B01111111
+   Seconds  = Miso(1)                                              'And &B01111111
+   Minutes = Miso(2)                                        'And &B01111111
+   Hours = Miso(3)                                          'And &B01111111
 
    Set Dfc_ss
-
-   Hours = Makedec(hour_bcd)
-   Minutes = Makedec(minute_bcd)
-   Seconds = Makedec(second_bcd)
 
 Return
 
