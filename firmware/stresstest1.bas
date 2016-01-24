@@ -30,28 +30,39 @@ $framesize = 60
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
 
+'(
 Dfc_ss Alias Portb.1
 Config Dfc_ss = Output : Dfc_ss = 1
+')
 
 Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
 
 
 Spiinit
 
+
+
 ' Timer and interrupt Configuration ==========================================
 
+Config Timer1 = Timer , Prescale = 8
+On Timer1 Tenthsecondtimer_isr
+Const Timer1_tenthsecondcount = 59286                       ' 65535 - 1563
+
+Enable Timer1
+'(
 On Pcint1 Pcint1_isr
 Pcmsk1.0 = 1                                                ' PCINT8  - 1 Second pulse
 Pcmsk1.1 = 1                                                ' PCINT9  - DCF message
 Pcmsk1.2 = 1                                                ' PCIN1T0 - Alarm interrupt
 
 Enable Pcint1
+')
 Enable Interrupts
 
 ' I/O Configuration ===========================================================
 
 
-
+'(
 Config Pinc.0 = Input
 Second_interrupt Alias Pinc.0
 
@@ -60,15 +71,17 @@ Dfc_interrupt Alias Pinc.1
 
 Config Pinc.2 = Input
 Dfc_alarm Alias Pinc.2
-
+')
 
 Heartbeat Alias Portb.0
 Config Heartbeat = Output : Heartbeat = 0
+'(
 Dfc_received Alias Portd.7
 Config Dfc_received = Output : Dfc_received = 0
+')
 
-
-
+Hb2 Alias Portd.7
+Config Hb2 = Output : Hb2 = 0
 
 ' Display
 
@@ -105,22 +118,29 @@ Dim Seconds As Byte
 Dim Minutes As Byte
 Dim Hours As Byte
 
+
+Dim Onetenth As Bit
+Dim Dec_seconds As Byte
+Dim Dec_minutes As Byte
+Dim Dec_hours As Byte
+
 Dim Colon_enabled As Bit
 
+'(
 Dim Interrupt_fired As Bit
 Interrupt_fired = 0
 Dim Dfc_time As Byte
 Dfc_time = 250
 Dim Periodic_int As Bit
 Periodic_int = 0
-
+')
 
 
 ' Main Loop ===================================================================
 
 
 ' Bring the slave select lines high.
-Set Dfc_ss
+'Set Dfc_ss
 Set Display_ss
 
 Seconds = 0
@@ -133,37 +153,42 @@ Wait 2
 Reset Heartbeat
 Wait 2
 
-Gosub Rtc_dfc_initialisation
+' Gosub Rtc_dfc_initialisation
 
 Gosub Init_display
 
-Do
-   If Interrupt_fired = 1 Then
-      Interrupt_fired = 0
-      If Periodic_int = 1 Then
-         Periodic_int = 0
-         Toggle Heartbeat
-         Disable Pcint1
-         Gosub Read_time_from_dfc
-         Waitms 50
-         Gosub Write_time_to_display
-         Enable Pcint1
+Set Hb2
+Wait 2
+Reset Hb2
+Wait 2
 
-         If Dfc_time = 0 Then
-            Gosub Delete_dfc_interrupt_flag
-            Set Dfc_received
-            Waitms 250
-            Reset Dfc_received
-         End If
-         If Dfc_time < 250 Then Incr Dfc_time
-         If Dfc_time < 240 Then                             ' Time since last DFC
-            Reset Dfc_received
-         Else
-            Set Dfc_received
+Dec_minutes = 0
+Dec_hours = 0
+
+Do
+
+   If Onetenth = 1 Then
+      Onetenth = 0
+      Incr Dec_minutes
+      If Dec_minutes > 99 Then
+         Dec_minutes = 0
+         Incr Dec_hours
+         If Dec_hours > 99 Then
+            Dec_hours = 0
          End If
       End If
+
+      Toggle Heartbeat
+
+      Minutes = Makebcd(dec_minutes)
+      Hours = Makebcd(dec_hours)
+
+      Gosub Write_time_to_display
+
    End If
+
 Loop
+
 End
 
 
@@ -274,7 +299,7 @@ Write_time_to_display:
 Return
 
 
-
+'(
 Rtc_dfc_initialisation:
    Reset Dfc_ss
    Mosi(1) = &H0A                                           ' Bulk write, starting at register &H0A
@@ -289,7 +314,6 @@ Rtc_dfc_initialisation:
    Spiout Mosi(5) , 1
    Set Dfc_ss
 Return
-
 
 Read_time_from_dfc:
 
@@ -329,13 +353,20 @@ Delete_periodic_interrupt_flag:
    Spiout Mosi(1) , 2
    Set Dfc_ss
 Return
+')
 
 
 ' Timer ISR ===================================================================
 
-
+'(
 Pcint1_isr:
    Interrupt_fired = 1
    If Second_interrupt = 0 Then Periodic_int = 1
    If Dfc_interrupt = 0 Then Dfc_time = 0
 Return
+')
+
+Tenthsecondtimer_isr:
+   Timer1 = Timer1_tenthsecondcount
+   Onetenth = 1
+ Return
