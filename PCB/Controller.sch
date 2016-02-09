@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:Tfac-Symbols
+LIBS:TfaC-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -160,9 +161,9 @@ F 3 "" H 10100 5850 60  0000 C CNN
 $EndComp
 Text GLabel 8550 1750 0    60   Input ~ 0
 Time_Set
-Text GLabel 8600 2200 0    60   Input ~ 0
-Alarm_Set
 Text GLabel 8600 2650 0    60   Input ~ 0
+Alarm_Set
+Text GLabel 8600 2200 0    60   Input ~ 0
 Fast
 Text GLabel 8600 3100 0    60   Input ~ 0
 Slow
@@ -174,9 +175,9 @@ Text GLabel 8750 5550 0    60   Input ~ 0
 Alarm_Enabled
 Text GLabel 5900 3800 2    60   Input ~ 0
 Time_Set
-Text GLabel 5900 4200 2    60   Input ~ 0
-Alarm_Set
 Text GLabel 6600 3900 2    60   Input ~ 0
+Alarm_Set
+Text GLabel 5900 4200 2    60   Input ~ 0
 Fast
 Text GLabel 5900 4000 2    60   Input ~ 0
 Slow

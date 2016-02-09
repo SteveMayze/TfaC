@@ -46,25 +46,14 @@ Pcmsk1.1 = 1                                                ' PCINT9  - DCF mess
 Pcmsk1.2 = 1                                                ' PCIN1T0 - Alarm interrupt
 
 Enable Pcint1
-
-
-' All the control switches are on PORT-D which is under PCINT2.
-' At the moment, just enabling all exceptin for PORTD.7 as this is used
-' as an output for the DCF indicator.
-On Pcint2 Pcint2_isr
-Pcmsk2 = &B01111111
-Enable Pcint2
-
 Enable Interrupts
 
 ' I/O Configuration ===========================================================
 
 Config Pinc.0 = Input
 Second_interrupt Alias Pinc.0
-
 Config Pinc.1 = Input
 Dfc_interrupt Alias Pinc.1
-
 Config Pinc.2 = Input
 Dfc_alarm Alias Pinc.2
 
@@ -72,10 +61,10 @@ Dfc_alarm Alias Pinc.2
 Ddrd = &B10000000
 Portd = &B01111111
 Time_set Alias Pind.0
-Fast_set Alias Pind.1
+Fast_set Alias Pind.4
 Slow_set Alias Pind.2
 Alarm_switch Alias Pind.3
-Alarm_set Alias Pind.4
+Alarm_set Alias Pind.1
 Sleep_btn Alias Pind.5
 Summertime Alias Pind.6
 
@@ -118,11 +107,8 @@ Dim Miso(5) As Byte
 
 
 ' Holding the values of the time as fields.
-' Dim Seconds As Byte
-' Dim Minutes As Byte
-' Dim Hours As Byte
-
 Dim Display_time(3) As Byte
+
 Const Seconds_i = 1
 Const Minutes_i = 2
 Const Hours_i = 3
@@ -147,6 +133,17 @@ Btn_interrupt_fired = 0
 Dim Btn_state As Byte
 
 
+Dim Alarmdisplay As Bit
+
+Dim Isfastpressed As Bit
+Dim Isslowpressed As Bit
+Dim Wasfastalreadyset As Bit
+Dim Wasslowalreadyset As Bit
+Dim Fastlongpresscounter As Long
+Dim Slowlongpresscounter As Long
+Const Longthreshold = 30
+
+
 ' Main Loop ===================================================================
 
 
@@ -157,6 +154,10 @@ Set Display_ss
 Time_seconds = 0
 Time_minutes = 00
 Time_hours = 12
+
+Alarm_seconds = 0
+Alarm_minutes = 00
+Alarm_hours = 06
 
 
 Set Heartbeat
@@ -171,43 +172,59 @@ Gosub Rtc_dfc_initialisation
 Gosub Init_display
 
 Do
+
+   ' Debounce Summertime , 0 , Summerwinter_action , Sub
+   Debounce Alarm_set , 0 , Alarmdisplayset_action , Sub
+   Debounce Alarm_set , 1 , Alarmdisplayreset_action , Sub
+   Debounce Fast_set , 0 , Fast_set_action , Sub
+   Debounce Slow_set , 0 , Slow_set_action , Sub
+
+   Gosub Evaluate_timeset
+
    If Rtc_interrupt_fired = 1 Then
-      Rtc_interrupt_fired = 0
       If Periodic_int = 1 Then
          Periodic_int = 0
-         Toggle Heartbeat
-
-         'Disable Pcint1
-         Gosub Read_time_from_dfc
-         Waitms 50
-         Display_time(seconds_i) = Time_seconds
-         Display_time(minutes_i) = Time_minutes
-         Display_time(hours_i) = Time_hours
-         Gosub Write_time_to_display
-         'Enable Pcint1
-
-         If Dfc_time = 0 Then
-            Gosub Delete_dfc_interrupt_flag
-            Set Dfc_received
-            Waitms 250
-            Reset Dfc_received
+         If Alarmdisplay = 1 Then
+            Set Btn_ack
+            Display_time(seconds_i) = Makebcd(alarm_seconds)
+            Display_time(minutes_i) = Makebcd(alarm_minutes)
+            Display_time(hours_i) = Makebcd(alarm_hours)
+            Gosub Write_time_to_display
+            If Isslowpressed = 1 Then
+               Incr Alarm_minutes
+               If Alarm_minutes > 59 Then
+                  Alarm_minutes = 0
+                  Incr Alarm_hours
+                  If Alarm_hours > 23 Then
+                     Alarm_hours = 0
+                  End If
+               End If
+            Else
+               If Isfastpressed = 1 Then
+                  Alarm_minutes = Alarm_minutes + 10
+                  If Alarm_minutes > 59 Then
+                     Alarm_minutes = 0
+                     Incr Alarm_hours
+                     If Alarm_hours > 23 Then
+                        Alarm_hours = 0
+                     End If
+                  End If
+               End If
+            End If
+         Else
+            Reset Btn_ack
+            Gosub Rtc_fired
          End If
-         If Dfc_time < 250 Then Incr Dfc_time
-          If Dfc_time < 240 Then                            ' Time since last DFC
-             Reset Dfc_received
-          Else
-             Set Dfc_received
-          End If
       End If
    End If
-   If Btn_interrupt_fired = 1 Then
-      Btn_interrupt_fired = 0
-      Toggle Btn_ack
-   End If
+
+
 Loop
 End
 
 ' Subroutines =================================================================
+
+
 
 Init_display:
    Reset Display_ss
@@ -359,6 +376,90 @@ Delete_periodic_interrupt_flag:
    Set Dfc_ss
 Return
 
+Rtc_fired:
+      Rtc_interrupt_fired = 0
+      'If Periodic_int = 1 Then
+         Toggle Heartbeat
+
+         'Disable Pcint1
+         Gosub Read_time_from_dfc
+         Waitms 50
+         Display_time(seconds_i) = Time_seconds
+         Display_time(minutes_i) = Time_minutes
+         Display_time(hours_i) = Time_hours
+         Gosub Write_time_to_display
+         'Enable Pcint1
+
+         If Dfc_time = 0 Then
+            Gosub Delete_dfc_interrupt_flag
+            Set Dfc_received
+            Waitms 250
+            Reset Dfc_received
+         End If
+         If Dfc_time < 250 Then Incr Dfc_time
+          If Dfc_time < 240 Then                            ' Time since last DFC
+             Reset Dfc_received
+          Else
+             Set Dfc_received
+          End If
+      'End If
+Return
+
+' Evaluate if the time-set buttons are held down long enough to start the
+' fast or slow time change.
+'
+Evaluate_timeset:
+
+   ' Fast time change
+   If fast_set = 0 Then
+      If Wasfastalreadyset = 0 Then
+         Incr Fastlongpresscounter
+         If Fast_set = 0 And Fastlongpresscounter > Longthreshold Then
+            Set Isfastpressed
+         End If
+      Else
+         Set Wasfastalreadyset
+      End If
+   Else
+      Reset Isfastpressed
+      Reset Wasfastalreadyset
+      Fastlongpresscounter = 0
+   End If
+
+   ' Slow time change
+   If slow_set = 0 Then
+      If Wasslowalreadyset = 1 Then
+         Incr Slowlongpresscounter
+         If slow_set = 0 And Slowlongpresscounter > Longthreshold Then
+            Set Isslowpressed
+         End If
+      Else
+         Set Wasslowalreadyset
+      End If
+   Else
+      Reset Isslowpressed
+      Reset Wasslowalreadyset
+      Slowlongpresscounter = 0
+   End If
+Return
+
+Alarmdisplayset_action:
+   If alarm_set = 0 Then Set Alarmdisplay
+Return
+
+Alarmdisplayreset_action:
+   If Alarm_set = 1 Then Reset Alarmdisplay
+   ' TODO Write the alarm to the RTC
+Return
+
+
+Fast_set_action:
+   If Fast_set = 0 Then Set Isfastpressed
+Return
+
+Slow_set_action:
+   If Slow_set = 0 Then Set Isslowpressed
+Return
 
 ' Timer ISR ===================================================================
 
