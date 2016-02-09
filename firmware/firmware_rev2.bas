@@ -70,7 +70,7 @@ Dfc_alarm Alias Pinc.2
 
 ' Time set etc. buttons ...........
 Ddrd = &B10000000
-Portb = &B01111111
+Portd = &B01111111
 Time_set Alias Pind.0
 Fast_set Alias Pind.1
 Slow_set Alias Pind.2
@@ -79,8 +79,12 @@ Alarm_set Alias Pind.4
 Sleep_btn Alias Pind.5
 Summertime Alias Pind.6
 
+
 Heartbeat Alias Portb.0
 Config Heartbeat = Output : Heartbeat = 0
+Btn_ack Alias Portb.6                                       ' Temporary output
+Config Btn_ack = Output : Btn_ack = 0
+
 Dfc_received Alias Portd.7
 Config Dfc_received = Output : Dfc_received = 0
 
@@ -114,19 +118,33 @@ Dim Miso(5) As Byte
 
 
 ' Holding the values of the time as fields.
-Dim Seconds As Byte
-Dim Minutes As Byte
-Dim Hours As Byte
+' Dim Seconds As Byte
+' Dim Minutes As Byte
+' Dim Hours As Byte
 
-Dim Colon_enabled As Bit
+Dim Display_time(3) As Byte
+Const Seconds_i = 1
+Const Minutes_i = 2
+Const Hours_i = 3
 
-Dim Interrupt_fired As Bit
-Interrupt_fired = 0
+Dim Time_seconds As Byte
+Dim Time_minutes As Byte
+Dim Time_hours As Byte
+
+Dim Alarm_seconds As Byte
+Dim Alarm_minutes As Byte
+Dim Alarm_hours As Byte
+
+Dim Rtc_interrupt_fired As Bit
+Rtc_interrupt_fired = 0
 Dim Dfc_time As Byte
 Dfc_time = 250
 Dim Periodic_int As Bit
 Periodic_int = 0
 
+Dim Btn_interrupt_fired As Bit
+Btn_interrupt_fired = 0
+Dim Btn_state As Byte
 
 
 ' Main Loop ===================================================================
@@ -136,14 +154,16 @@ Periodic_int = 0
 Set Dfc_ss
 Set Display_ss
 
-Seconds = 0
-Minutes = 00
-Hours = 12
+Time_seconds = 0
+Time_minutes = 00
+Time_hours = 12
 
 
 Set Heartbeat
+Set Btn_ack
 Wait 2
 Reset Heartbeat
+Reset Btn_ack
 Wait 2
 
 Gosub Rtc_dfc_initialisation
@@ -151,16 +171,20 @@ Gosub Rtc_dfc_initialisation
 Gosub Init_display
 
 Do
-   If Interrupt_fired = 1 Then
-      Interrupt_fired = 0
+   If Rtc_interrupt_fired = 1 Then
+      Rtc_interrupt_fired = 0
       If Periodic_int = 1 Then
          Periodic_int = 0
          Toggle Heartbeat
-         Disable Pcint1
+
+         'Disable Pcint1
          Gosub Read_time_from_dfc
          Waitms 50
+         Display_time(seconds_i) = Time_seconds
+         Display_time(minutes_i) = Time_minutes
+         Display_time(hours_i) = Time_hours
          Gosub Write_time_to_display
-         Enable Pcint1
+         'Enable Pcint1
 
          If Dfc_time = 0 Then
             Gosub Delete_dfc_interrupt_flag
@@ -169,22 +193,21 @@ Do
             Reset Dfc_received
          End If
          If Dfc_time < 250 Then Incr Dfc_time
-         If Dfc_time < 240 Then                             ' Time since last DFC
-            Reset Dfc_received
-         Else
-            Set Dfc_received
-         End If
+          If Dfc_time < 240 Then                            ' Time since last DFC
+             Reset Dfc_received
+          Else
+             Set Dfc_received
+          End If
       End If
+   End If
+   If Btn_interrupt_fired = 1 Then
+      Btn_interrupt_fired = 0
+      Toggle Btn_ack
    End If
 Loop
 End
 
-
-
-
 ' Subroutines =================================================================
-
-
 
 Init_display:
    Reset Display_ss
@@ -248,7 +271,7 @@ Write_time_to_display:
 
    ' hours 10s
    Mosi(1) = Digit1_addr
-   Mosi(2) = Hours
+   Mosi(2) = Display_time(hours_i)
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
@@ -257,7 +280,7 @@ Write_time_to_display:
    ' hours units
    Reset Display_ss
    Mosi(1) = Digit2_addr
-   Mosi(2) = Hours
+   Mosi(2) = Display_time(hours_i)
    Shift Mosi(2) , Left , 4
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
@@ -267,7 +290,7 @@ Write_time_to_display:
    ' Minutes 10s
    Reset Display_ss
    Mosi(1) = Digit3_addr
-   Mosi(2) = Minutes
+   Mosi(2) = Display_time(minutes_i)
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
@@ -276,7 +299,7 @@ Write_time_to_display:
    ' Minutes units
    Reset Display_ss
    Mosi(1) = Digit4_addr
-   Mosi(2) = Minutes
+   Mosi(2) = Display_time(minutes_i)
    Shift Mosi(2) , Left , 4
    Shift Mosi(2) , Right , 4
    Spiout Mosi(1) , 1
@@ -305,26 +328,19 @@ Return
 
 
 Read_time_from_dfc:
-
    Reset Dfc_ss
-
-
    Mosi(1) = &H40                                           ' Burst read, starting from register &H00 (Seconds)
    Mosi(2) = &HC1
    Mosi(3) = &HC2
    Mosi(4) = &HC3
-
    Spiout Mosi(1) , 1
    Spiin Miso(1) , 1
    Spiin Miso(2) , 1
    Spiin Miso(3) , 1
-
-   Seconds = Miso(1)                                        'And &B01111111
-   Minutes = Miso(2)                                        'And &B01111111
-   Hours = Miso(3)                                          'And &B01111111
-
+   Time_seconds = Miso(1)                                   'And &B01111111
+   Time_minutes = Miso(2)                                   'And &B01111111
+   Time_hours = Miso(3)                                     'And &B01111111
    Set Dfc_ss
-
 Return
 
 Delete_dfc_interrupt_flag:
@@ -348,11 +364,13 @@ Return
 
 
 Pcint1_isr:
-   Interrupt_fired = 1
+   Rtc_interrupt_fired = 1
    If Second_interrupt = 0 Then Periodic_int = 1
    If Dfc_interrupt = 0 Then Dfc_time = 0
 Return
 
 
-Pcint2_isr
+Pcint2_isr:
+   Btn_interrupt_fired = 1
+   Btn_state = Portd
 Return

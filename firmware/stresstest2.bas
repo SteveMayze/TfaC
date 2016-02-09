@@ -30,35 +30,40 @@ $framesize = 60
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
 
+'(
 Dfc_ss Alias Portb.1
 Config Dfc_ss = Output : Dfc_ss = 1
+')
 
 Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
 
 
 Spiinit
 
+
+
 ' Timer and interrupt Configuration ==========================================
 
+Config Timer1 = Timer , Prescale = 8
+On Timer1 Tenthsecondtimer_isr
+' Const Timer1_tenthsecondcount = 59286 ' 20Hz
+Const Timer1_tenthsecondcount = 64286                       ' 100Hz
+
+Enable Timer1
+'(
 On Pcint1 Pcint1_isr
 Pcmsk1.0 = 1                                                ' PCINT8  - 1 Second pulse
 Pcmsk1.1 = 1                                                ' PCINT9  - DCF message
 Pcmsk1.2 = 1                                                ' PCIN1T0 - Alarm interrupt
 
 Enable Pcint1
-
-
-' All the control switches are on PORT-D which is under PCINT2.
-' At the moment, just enabling all exceptin for PORTD.7 as this is used
-' as an output for the DCF indicator.
-On Pcint2 Pcint2_isr
-Pcmsk2 = &B01111111
-Enable Pcint2
-
+')
 Enable Interrupts
 
 ' I/O Configuration ===========================================================
 
+
+'(
 Config Pinc.0 = Input
 Second_interrupt Alias Pinc.0
 
@@ -67,22 +72,17 @@ Dfc_interrupt Alias Pinc.1
 
 Config Pinc.2 = Input
 Dfc_alarm Alias Pinc.2
-
-' Time set etc. buttons ...........
-Ddrd = &B10000000
-Portb = &B01111111
-Time_set Alias Pind.0
-Fast_set Alias Pind.1
-Slow_set Alias Pind.2
-Alarm_switch Alias Pind.3
-Alarm_set Alias Pind.4
-Sleep_btn Alias Pind.5
-Summertime Alias Pind.6
+')
 
 Heartbeat Alias Portb.0
 Config Heartbeat = Output : Heartbeat = 0
+'(
 Dfc_received Alias Portd.7
 Config Dfc_received = Output : Dfc_received = 0
+')
+
+Hb2 Alias Portd.7
+Config Hb2 = Output : Hb2 = 0
 
 ' Display
 
@@ -109,8 +109,13 @@ Const Display_test_register = &H8F
 Const Display_test_on = &H01
 Const Display_test_off = &H00
 
+
 Dim Mosi(5) As Byte
 Dim Miso(5) As Byte
+Dim Digit(4) As Byte
+Dim Digit_idx As Byte
+Dim Pause As Byte
+Dim Direction As Bit
 
 
 ' Holding the values of the time as fields.
@@ -118,22 +123,29 @@ Dim Seconds As Byte
 Dim Minutes As Byte
 Dim Hours As Byte
 
+
+Dim Onetenth As Bit
+Dim Dec_seconds As Byte
+Dim Dec_minutes As Byte
+Dim Dec_hours As Byte
+
 Dim Colon_enabled As Bit
 
+'(
 Dim Interrupt_fired As Bit
 Interrupt_fired = 0
 Dim Dfc_time As Byte
 Dfc_time = 250
 Dim Periodic_int As Bit
 Periodic_int = 0
-
+')
 
 
 ' Main Loop ===================================================================
 
 
 ' Bring the slave select lines high.
-Set Dfc_ss
+'Set Dfc_ss
 Set Display_ss
 
 Seconds = 0
@@ -146,43 +158,113 @@ Wait 2
 Reset Heartbeat
 Wait 2
 
-Gosub Rtc_dfc_initialisation
+' Gosub Rtc_dfc_initialisation
 
 Gosub Init_display
 
-Do
-   If Interrupt_fired = 1 Then
-      Interrupt_fired = 0
-      If Periodic_int = 1 Then
-         Periodic_int = 0
-         Toggle Heartbeat
-         Disable Pcint1
-         Gosub Read_time_from_dfc
-         Waitms 50
-         Gosub Write_time_to_display
-         Enable Pcint1
+Set Hb2
+Wait 2
+Reset Hb2
+Wait 2
 
-         If Dfc_time = 0 Then
-            Gosub Delete_dfc_interrupt_flag
-            Set Dfc_received
-            Waitms 250
-            Reset Dfc_received
-         End If
-         If Dfc_time < 250 Then Incr Dfc_time
-         If Dfc_time < 240 Then                             ' Time since last DFC
-            Reset Dfc_received
-         Else
-            Set Dfc_received
-         End If
-      End If
-   End If
-Loop
+Dec_minutes = 0
+Dec_hours = 0
+
+Gosub Speed_test_2
+
 End
 
 
 
 
+
 ' Subroutines =================================================================
+
+Speed_test_2:
+Digit(1) = &H00
+Digit(2) = &H0A
+Digit(3) = &H0A
+Digit(4) = &H0A
+Digit_idx = 1
+Direction = 0
+Pause = 0
+Do
+   If Onetenth = 1 Then
+      Onetenth = 0
+
+      Toggle Heartbeat
+
+      Incr Digit(digit_idx)
+      If Digit(digit_idx) > &H09 Then
+         Incr Pause
+         If Pause > 99 Then
+            Pause = 0
+            If Direction = 0 Then
+               Incr Digit_idx
+               If Digit_idx > 4 Then
+                  'Digit_idx = 1
+                  Digit_idx = 3
+                  Set Direction
+               End If
+            Else
+               Decr Digit_idx
+               If Digit_idx < 1 Then
+                  'Digit_idx = 4
+                  Digit_idx = 2
+                  Reset Direction
+               End If
+            End If
+            Digit(digit_idx) = &H00
+         End If
+      End If
+
+      Dec_hours = Digit(1)
+      Shift Dec_hours , Left , 4
+      Hours = Dec_hours Or Digit(2)
+
+      Dec_minutes = Digit(3)
+      Shift Dec_minutes , Left , 4
+      Minutes = Dec_minutes Or Digit(4)
+
+      ' Minutes = Makebcd(dec_minutes)
+      ' Hours = Makebcd(dec_hours)
+
+      Gosub Write_time_to_display
+
+   End If
+
+Loop
+
+Return
+
+
+Speed_test_1:
+Do
+
+   If Onetenth = 1 Then
+      Onetenth = 0
+      Incr Dec_minutes
+      If Dec_minutes > 99 Then
+         Dec_minutes = 0
+         Incr Dec_hours
+         If Dec_hours > 99 Then
+            Dec_hours = 0
+         End If
+      End If
+
+      Toggle Heartbeat
+
+      Minutes = Makebcd(dec_minutes)
+      Hours = Makebcd(dec_hours)
+
+      Gosub Write_time_to_display
+
+   End If
+
+Loop
+
+Return
+
 
 
 
@@ -287,7 +369,7 @@ Write_time_to_display:
 Return
 
 
-
+'(
 Rtc_dfc_initialisation:
    Reset Dfc_ss
    Mosi(1) = &H0A                                           ' Bulk write, starting at register &H0A
@@ -302,7 +384,6 @@ Rtc_dfc_initialisation:
    Spiout Mosi(5) , 1
    Set Dfc_ss
 Return
-
 
 Read_time_from_dfc:
 
@@ -342,17 +423,20 @@ Delete_periodic_interrupt_flag:
    Spiout Mosi(1) , 2
    Set Dfc_ss
 Return
+')
 
 
 ' Timer ISR ===================================================================
 
-
+'(
 Pcint1_isr:
    Interrupt_fired = 1
    If Second_interrupt = 0 Then Periodic_int = 1
    If Dfc_interrupt = 0 Then Dfc_time = 0
 Return
+')
 
-
-Pcint2_isr
-Return
+Tenthsecondtimer_isr:
+   Timer1 = Timer1_tenthsecondcount
+   Onetenth = 1
+ Return

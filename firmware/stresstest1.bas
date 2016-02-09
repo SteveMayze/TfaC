@@ -46,7 +46,8 @@ Spiinit
 
 Config Timer1 = Timer , Prescale = 8
 On Timer1 Tenthsecondtimer_isr
-Const Timer1_tenthsecondcount = 59286                       ' 65535 - 1563
+' Const Timer1_tenthsecondcount = 59286 ' 20Hz
+Const Timer1_tenthsecondcount = 64286                       ' 100Hz
 
 Enable Timer1
 '(
