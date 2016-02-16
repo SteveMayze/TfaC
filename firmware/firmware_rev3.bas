@@ -168,14 +168,25 @@ Reset Btn_ack
 Wait 2
 
 Gosub Rtc_dfc_initialisation
+Gosub Write_alarm_to_rtc
+
+Alarm_seconds = 0
+Alarm_minutes = 00
+Alarm_hours = 00
+
+
 
 Gosub Init_display
 
 Do
 
    ' Debounce Summertime , 0 , Summerwinter_action , Sub
-   Debounce Alarm_set , 0 , Alarmdisplayset_action , Sub
-   Debounce Alarm_set , 1 , Alarmdisplayreset_action , Sub
+   If Alarmdisplay = 0 Then
+      Debounce Alarm_set , 0 , Alarmdisplayset_action , Sub
+   End If
+   If Alarmdisplay = 1 Then
+      Debounce Alarm_set , 1 , Alarmdisplayreset_action , Sub
+   End If
    Debounce Fast_set , 0 , Fast_set_action , Sub
 '   Debounce Fast_set , 1 , Fast_reset_action , Sub
    Debounce Slow_set , 0 , Slow_set_action , Sub
@@ -364,6 +375,21 @@ Read_time_from_dfc:
    Set Dfc_ss
 Return
 
+Read_alarm_from_dfc:
+   Reset Dfc_ss
+   Mosi(1) = &H47                                           ' Burst read, starting from register &H00 (Seconds)
+   Mosi(2) = &HC1
+   Mosi(3) = &HC2
+'   Mosi(4) = &HC3
+   Spiout Mosi(1) , 1
+   Spiin Miso(1) , 1
+   Spiin Miso(2) , 1
+   Alarm_seconds = 0                                        'And &B01111111
+   Alarm_minutes = Makedec(miso(1))                         'And &B01111111
+   Alarm_hours = Makedec(miso(2))                           'And &B01111111
+   Set Dfc_ss
+Return
+
 Delete_dfc_interrupt_flag:
    Reset Dfc_ss
    Mosi(1) = &H8E
@@ -371,6 +397,30 @@ Delete_dfc_interrupt_flag:
    Spiout Mosi(1) , 2
    Set Dfc_ss
 Return
+
+Write_alarm_to_rtc:
+   Reset Dfc_ss
+   Mosi(1) = &H07
+   Mosi(2) = Makebcd(alarm_minutes)
+   Mosi(3) = Makebcd(alarm_hours)
+   Mosi(4) = &HFF
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Spiout Mosi(3) , 1
+   Spiout Mosi(4) , 1
+   Set Dfc_ss
+
+   ' TODO This has to move to the alarm enable swtich handler.
+   '(
+   Reset Dfc_ss
+   Mosi(1) = &H8B
+   Mosi(2) = &H06
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Dfc_ss
+')
+Return
+
 
 Delete_periodic_interrupt_flag:
    Reset Dfc_ss
@@ -448,12 +498,14 @@ Return
 Alarmdisplayset_action:
    ' Rtc_interrupt_fired = 1
    If Alarm_set = 0 Then Set Alarmdisplay
+   Gosub Read_alarm_from_dfc
 Return
 
 Alarmdisplayreset_action:
    ' Rtc_interrupt_fired = 1
    If Alarm_set = 1 Then Reset Alarmdisplay
    ' TODO Write the alarm to the RTC
+   Gosub Write_alarm_to_rtc
 Return
 
 
@@ -486,8 +538,3 @@ Pcint1_isr:
    If Dfc_interrupt = 0 Then Dfc_time = 0
 Return
 
-
-Pcint2_isr:
-   Btn_interrupt_fired = 1
-   Btn_state = Portd
-Return
