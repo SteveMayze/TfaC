@@ -45,9 +45,9 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 3350 2200 0    60   Input ~ 0
+Text HLabel 3350 2000 0    60   Input ~ 0
 ~SS
-Text HLabel 3350 1650 0    60   Input ~ 0
+Text HLabel 3350 2200 0    60   Input ~ 0
 Vcc
 $Comp
 L DisplayModule M301
@@ -81,7 +81,7 @@ F 3 "" H 4150 2900 60  0000 C CNN
 $EndComp
 Text HLabel 3350 2100 0    60   Input ~ 0
 SCK
-Text HLabel 3350 2000 0    60   Input ~ 0
+Text HLabel 3350 1650 0    60   Input ~ 0
 MOSI
 Wire Wire Line
 	4150 2800 4150 2900
