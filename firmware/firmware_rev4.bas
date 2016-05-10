@@ -74,9 +74,9 @@ Config Heartbeat = Output : Heartbeat = 0
 Btn_ack Alias Portb.6                                       ' Temporary output
 Config Btn_ack = Output : Btn_ack = 0
 
-Dfc_received Alias Portd.7
-Config Dfc_received = Output : Dfc_received = 0
-'Dim Dfc_received As Bit
+'Dfc_received Alias Portd.7
+'Config Dfc_received = Output : Dfc_received = 0
+Dim Dfc_received As Bit
 
 
 ' Display
@@ -482,7 +482,7 @@ Rtc_fired:
             Gosub Indicate_dfc
             Waitms 250
             Reset Dfc_received
-            gosub  Indicate_dfc
+            Gosub Indicate_dfc
          End If
          If Dfc_time < 250 Then Incr Dfc_time
           If Dfc_time < 240 Then                            ' Time since last DFC
