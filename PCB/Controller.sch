@@ -167,7 +167,7 @@ Text GLabel 8600 2200 0    60   Input ~ 0
 Fast
 Text GLabel 8600 3100 0    60   Input ~ 0
 Slow
-Text GLabel 8300 3700 0    60   Input ~ 0
+Text GLabel 8650 3600 0    60   Input ~ 0
 Auto_Time
 Text GLabel 8550 4350 0    60   Input ~ 0
 Sleep
@@ -191,7 +191,7 @@ $Comp
 L SW_PUSH SW507
 U 1 1 55C107C5
 P 9350 4800
-F 0 "SW507" H 9000 4900 50  0000 C CNN
+F 0 "SW507" H 9000 4850 50  0000 C CNN
 F 1 "Summer Time" H 9350 4720 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 9350 4800 60  0001 C CNN
 F 3 "" H 9350 4800 60  0000 C CNN
@@ -264,17 +264,6 @@ F 3 "" H 9300 4300 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L SWITCH_INV SW505
-U 1 1 55D06426
-P 9150 3700
-F 0 "SW505" H 8950 3850 50  0000 C CNN
-F 1 "Auto Time" H 9000 3550 50  0000 C CNN
-F 2 "tfac-footprints:AYZ0202AGRLC" H 9150 3700 60  0001 C CNN
-F 3 "" H 9150 3700 60  0000 C CNN
-	1    9150 3700
-	1    0    0    -1  
-$EndComp
-$Comp
 L SWITCH_INV SW508
 U 1 1 55D066FA
 P 9400 5550
@@ -337,7 +326,6 @@ Wire Wire Line
 	5800 1300 6050 1300
 Wire Wire Line
 	10100 1750 10100 5850
-Connection ~ 10100 3800
 Wire Wire Line
 	8550 1750 8950 1750
 Wire Wire Line
@@ -346,8 +334,6 @@ Wire Wire Line
 	8600 2650 8950 2650
 Wire Wire Line
 	8600 3100 8950 3100
-Wire Wire Line
-	8300 3700 8650 3700
 Wire Wire Line
 	8550 4350 8900 4350
 Wire Wire Line
@@ -427,9 +413,6 @@ Wire Wire Line
 Connection ~ 10100 2650
 Connection ~ 9650 2650
 Wire Wire Line
-	9650 3800 10100 3800
-NoConn ~ 9650 3600
-Wire Wire Line
 	9050 3000 8950 3000
 Wire Wire Line
 	8950 3000 8950 3200
@@ -464,7 +447,6 @@ Wire Wire Line
 Connection ~ 10100 4350
 Connection ~ 9650 4350
 NoConn ~ 9900 5450
-NoConn ~ 9300 3850
 Wire Wire Line
 	1100 1050 1750 1050
 Wire Wire Line
@@ -487,8 +469,13 @@ U 1 1 564D7767
 P 2300 4150
 F 0 "D501" H 2300 4250 50  0000 C CNN
 F 1 "LED" H 2300 4050 50  0000 C CNN
-F 2 "LEDs:LED-0805" H 2300 4150 60  0001 C CNN
+F 2 "LEDs:LED_0805" H 2300 4150 60  0001 C CNN
 F 3 "" H 2300 4150 60  0000 C CNN
+F 4 "Value" H 2300 4150 60  0001 C CNN "DigiKeyPN"
+F 5 "Value" H 2300 4150 60  0001 C CNN "Voltage"
+F 6 "Value" H 2300 4150 60  0001 C CNN "ConradPN"
+F 7 "Value" H 2300 4150 60  0001 C CNN "Link"
+F 8 "No" H 2300 4150 60  0001 C CNN "On-Hand"
 	1    2300 4150
 	-1   0    0    1   
 $EndComp
@@ -566,51 +553,6 @@ Wire Wire Line
 Wire Wire Line
 	4600 4300 4600 4100
 Connection ~ 4600 4100
-$Comp
-L LED D1
-U 1 1 56E1B9DB
-P 2300 4550
-F 0 "D1" H 2300 4650 50  0000 C CNN
-F 1 "LED" H 2300 4450 50  0000 C CNN
-F 2 "LEDs:LED-0805" H 2300 4550 60  0001 C CNN
-F 3 "" H 2300 4550 60  0000 C CNN
-	1    2300 4550
-	-1   0    0    1   
-$EndComp
-$Comp
-L R R1
-U 1 1 56E1B9E1
-P 2750 4550
-F 0 "R1" V 2830 4550 50  0000 C CNN
-F 1 "480Ω" V 2650 4550 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 2680 4550 30  0001 C CNN
-F 3 "" H 2750 4550 30  0000 C CNN
-	1    2750 4550
-	0    1    1    0   
-$EndComp
-$Comp
-L GND #PWR016
-U 1 1 56E1B9E7
-P 3050 4650
-F 0 "#PWR016" H 3050 4400 50  0001 C CNN
-F 1 "GND" H 3050 4500 50  0000 C CNN
-F 2 "" H 3050 4650 60  0000 C CNN
-F 3 "" H 3050 4650 60  0000 C CNN
-	1    3050 4650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2500 4550 2600 4550
-Wire Wire Line
-	2900 4550 3050 4550
-Wire Wire Line
-	3050 4550 3050 4650
-Text Label 4250 2300 2    60   ~ 0
-RTCFail
-Wire Wire Line
-	2100 4550 1550 4550
-Text Label 1550 4550 0    60   ~ 0
-RTCFail
 Text Label 1600 4150 0    60   ~ 0
 Heartbeat
 Wire Wire Line
@@ -621,52 +563,17 @@ Text Label 4300 1150 2    60   ~ 0
 Buzzer
 Wire Wire Line
 	3650 2200 4250 2200
-Wire Wire Line
-	3650 2300 4250 2300
 NoConn ~ 3650 1050
 NoConn ~ 3650 1750
 NoConn ~ 3650 2400
-$Comp
-L Crystal_Small Y1
-U 1 1 56E46684
-P 7000 4700
-F 0 "Y1" H 7000 4800 50  0000 C CNN
-F 1 "Piezo" V 7000 4500 50  0000 C CNN
-F 2 "" H 7000 4700 50  0000 C CNN
-F 3 "" H 7000 4700 50  0000 C CNN
-	1    7000 4700
-	0    1    1    0   
-$EndComp
-$Comp
-L Q_NPN_BCE Q1
-U 1 1 56E4676D
-P 6650 5300
-F 0 "Q1" H 6950 5350 50  0000 R CNN
-F 1 "Q_NPN_BCE" H 7250 5250 50  0000 R CNN
-F 2 "" H 6850 5400 50  0000 C CNN
-F 3 "" H 6650 5300 50  0000 C CNN
-	1    6650 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L INDUCTOR_SMALL L1
-U 1 1 56E46A19
-P 6500 4700
-F 0 "L1" H 6500 4800 50  0000 C CNN
-F 1 "39mH" H 6500 4650 50  0000 C CNN
-F 2 "" H 6500 4700 50  0000 C CNN
-F 3 "" H 6500 4700 50  0000 C CNN
-	1    6500 4700
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
-	6500 4450 6500 4350
+	6500 4350 6500 4550
 Wire Wire Line
 	6500 4350 7000 4350
 Wire Wire Line
 	7000 4350 7000 4600
 Wire Wire Line
-	6500 4950 6500 5050
+	6500 4850 6500 5050
 Wire Wire Line
 	6500 5050 7000 5050
 Wire Wire Line
@@ -676,43 +583,108 @@ Wire Wire Line
 Wire Wire Line
 	6750 4200 6500 4200
 Connection ~ 6750 4350
-Text HLabel 6500 4200 0    60   Input ~ 0
-Vcc
-Wire Wire Line
-	6750 5100 6750 5050
-Connection ~ 6750 5050
-Wire Wire Line
-	6450 5300 6100 5300
-Text Label 6100 5300 0    60   ~ 0
+Text Label 6100 5450 0    60   ~ 0
 Buzzer
 $Comp
-L GND #PWR017
+L GND #PWR016
 U 1 1 56E475A8
-P 6750 5650
-F 0 "#PWR017" H 6750 5400 50  0001 C CNN
-F 1 "GND" H 6750 5500 50  0000 C CNN
-F 2 "" H 6750 5650 60  0000 C CNN
-F 3 "" H 6750 5650 60  0000 C CNN
-	1    6750 5650
+P 6750 5800
+F 0 "#PWR016" H 6750 5550 50  0001 C CNN
+F 1 "GND" H 6750 5650 50  0000 C CNN
+F 2 "" H 6750 5800 60  0000 C CNN
+F 3 "" H 6750 5800 60  0000 C CNN
+	1    6750 5800
+	1    0    0    -1  
+$EndComp
+Text Notes 5100 6400 0    60   ~ 0
+BJT requires a Vce (breakdown)\nof 60V or more!\n\nBe sure to check the footprint!
+Text Notes 5550 5450 0    60   ~ 0
+PWM signal
+Wire Wire Line
+	6450 5450 6100 5450
+Wire Wire Line
+	6750 5650 6750 5800
+Wire Wire Line
+	6750 5250 6750 5050
+Connection ~ 6750 5050
+$Comp
+L SPEAKER SP501
+U 1 1 5787E352
+P 7300 4700
+F 0 "SP501" H 7200 4950 50  0000 C CNN
+F 1 "CT-1205-SMT" H 7200 4450 50  0000 C CNN
+F 2 "tfac-footprints:CT-1205-SMT" H 7300 4700 50  0001 C CNN
+F 3 "http://www.cui.com/product/resource/ct-1205-smt.pdf" H 7300 4700 50  0001 C CNN
+F 4 "102-1199-2-ND" H 7300 4700 60  0001 C CNN "DigiKeyPN"
+F 5 "Value" H 7300 4700 60  0001 C CNN "Voltage"
+F 6 "Value" H 7300 4700 60  0001 C CNN "ConradPN"
+F 7 "Value" H 7300 4700 60  0001 C CNN "Link"
+F 8 "Yes" H 7300 4700 60  0001 C CNN "On-Hand"
+	1    7300 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L D D503
+U 1 1 5787E3E5
+P 6500 4700
+F 0 "D503" H 6500 4800 50  0000 C CNN
+F 1 "1N4148W" H 6500 4600 50  0000 C CNN
+F 2 "Diodes_SMD:SOD-123" H 6500 4700 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85887/1n4148wfl-g.pdf" H 6500 4700 50  0001 C CNN
+F 4 "Value" H 6500 4700 60  0001 C CNN "DigiKeyPN"
+F 5 "Value" H 6500 4700 60  0001 C CNN "Voltage"
+F 6 "Value" H 6500 4700 60  0001 C CNN "ConradPN"
+F 7 "Value" H 6500 4700 60  0001 C CNN "Link"
+F 8 "Yes" H 6500 4700 60  0001 C CNN "On-Hand"
+F 9 "Value" H 6500 4700 60  0001 C CNN " 1N4148WFL-G3-08GICT-ND "
+	1    6500 4700
+	0    1    1    0   
+$EndComp
+$Comp
+L Q_NPN_BCE Q501
+U 1 1 5787E5A8
+P 6650 5450
+F 0 "Q501" H 7100 5500 50  0000 R CNN
+F 1 "2SD2391" H 7250 5400 50  0000 R CNN
+F 2 "TO_SOT_Packages_SMD:SOT89-3_Housing" H 6850 5550 50  0001 C CNN
+F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/discrete/transistor/bipolar/2sd2391t100q-e.pdf" H 6650 5450 50  0001 C CNN
+F 4 "Value" H 6650 5450 60  0001 C CNN "DigiKeyPN"
+F 5 "Value" H 6650 5450 60  0001 C CNN "Voltage"
+F 6 "Value" H 6650 5450 60  0001 C CNN "ConradPN"
+F 7 "Value" H 6650 5450 60  0001 C CNN "Link"
+F 8 "Yes" H 6650 5450 60  0001 C CNN "On-Hand"
+	1    6650 5450
+	1    0    0    -1  
+$EndComp
+NoConn ~ 3650 2300
+Text HLabel 6500 4200 0    60   Input ~ 0
+Vcc
+$Comp
+L CONN_01X02 SW505
+U 1 1 579AA172
+P 9300 3650
+F 0 "SW505" H 9300 3800 50  0000 C CNN
+F 1 "AUTO_TIME" H 9250 3450 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 9300 3650 50  0001 C CNN
+F 3 "" H 9300 3650 50  0000 C CNN
+	1    9300 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6750 5500 6750 5650
-Text Notes 6150 6250 0    60   ~ 0
-BJT requires a Vce (breakdown)\nof 60V or more!\n\nBe sure to check the footprint!
-Text Notes 7100 4850 0    60   ~ 0
-Piezo Bender
-Text Notes 5550 5300 0    60   ~ 0
-PWM signal
+	8650 3600 9100 3600
 $Comp
-L R R?
-U 1 1 56E98D80
-P 6500 5550
-F 0 "R?" V 6580 5550 50  0000 C CNN
-F 1 "480Ω" V 6400 5550 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 6430 5550 30  0001 C CNN
-F 3 "" H 6500 5550 30  0000 C CNN
-	1    6500 5550
-	-1   0    0    1   
+L GND #PWR017
+U 1 1 579AA3CB
+P 8900 3850
+F 0 "#PWR017" H 8900 3600 50  0001 C CNN
+F 1 "GND" H 8900 3700 50  0000 C CNN
+F 2 "" H 8900 3850 60  0000 C CNN
+F 3 "" H 8900 3850 60  0000 C CNN
+	1    8900 3850
+	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9100 3700 8900 3700
+Wire Wire Line
+	8900 3700 8900 3850
 $EndSCHEMATC

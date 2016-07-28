@@ -55,7 +55,7 @@ U 1 1 559837A8
 P 4000 2100
 F 0 "M301" H 3600 1650 60  0000 C CNN
 F 1 "DisplayModule" H 4000 2700 60  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 4000 2100 60  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x07" H 4000 2100 60  0001 C CNN
 F 3 "" H 4000 2100 60  0000 C CNN
 	1    4000 2100
 	-1   0    0    -1  
@@ -91,4 +91,8 @@ Text HLabel 3350 2400 0    60   Input ~ 0
 Reset
 Wire Wire Line
 	3350 2400 3550 2400
+Text HLabel 3350 1800 0    60   Input ~ 0
+MISO
+Wire Wire Line
+	3350 1800 3550 1800
 $EndSCHEMATC
