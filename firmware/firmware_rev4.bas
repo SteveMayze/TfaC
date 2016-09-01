@@ -30,7 +30,7 @@ $framesize = 60
 Display_ss Alias Portb.2
 Config Display_ss = Output : Display_ss = 1
 
-Dfc_ss Alias Portb.1
+Dfc_ss Alias Portb.6
 Config Dfc_ss = Output : Dfc_ss = 1
 
 Config Spi = Soft , Din = Pinb.4 , Dout = Portb.3 , Ss = None , Clock = Portb.5 , Setup = 40 , Mode = 1
@@ -69,10 +69,10 @@ Sleep_btn Alias Pind.5
 Summertime Alias Pind.6
 
 
-Heartbeat Alias Portb.0
+Heartbeat Alias Portc.3
 Config Heartbeat = Output : Heartbeat = 0
-Btn_ack Alias Portb.6                                       ' Temporary output
-Config Btn_ack = Output : Btn_ack = 0
+'Btn_ack Alias Portb.6                                       ' Temporary output
+'Config Btn_ack = Output : Btn_ack = 0
 
 'Dfc_received Alias Portd.7
 'Config Dfc_received = Output : Dfc_received = 0
@@ -163,10 +163,10 @@ Alarm_hours = 06
 
 
 Set Heartbeat
-Set Btn_ack
+'Set Btn_ack
 Wait 2
 Reset Heartbeat
-Reset Btn_ack
+'Reset Btn_ack
 Wait 2
 
 Gosub Rtc_dfc_initialisation
@@ -202,7 +202,7 @@ Do
       If Periodic_int = 1 Then
          Periodic_int = 0
          If Alarmdisplay = 1 Then
-            Set Btn_ack
+'            Set Btn_ack
             Display_time(seconds_i) = Makebcd(alarm_seconds)
             Display_time(minutes_i) = Makebcd(alarm_minutes)
             Display_time(hours_i) = Makebcd(alarm_hours)
@@ -229,7 +229,7 @@ Do
                End If
             End If
          Else
-            Reset Btn_ack
+'            Reset Btn_ack
             Gosub Rtc_fired
          End If
       End If
