@@ -149,6 +149,7 @@ Alarm_fired = 0
 Dim Alarmdisplay As Bit
 Dim Alarm_enabled As Bit
 Dim Alarm_configured As Bit
+Dim Sleeppressed As Bit
 
 Dim Isfastpressed As Bit
 Dim Isslowpressed As Bit
@@ -164,9 +165,10 @@ Const Tone_pitch = 500                                      ' 397
 Dim Tone As Byte
 Dim Tone_length As Integer
 Dim Tone_idx As Byte
-Dim Song(25) As Byte
+Dim Song(26) As Byte
 Dim Songlen As Byte
-Dim Song_finished As Bit
+Dim Song_finished As Byte
+Const Song_repeat = 5
 
 Const Base_length = 7
 
@@ -222,18 +224,20 @@ Rtc_interrupt_fired = 1
 Display_time(seconds_i) = 0
 Display_time(minutes_i) = 0
 Display_time(hours_i) = 0
+Reset Sleeppressed
 
 Wait 1
 
 Gosub Init_display
 
-' Gosub Read_time_from_dfc
+Gosub Read_time_from_dfc
 Waitms 50
 Display_time(seconds_i) = Time_seconds
 Display_time(minutes_i) = Time_minutes
 Display_time(hours_i) = Time_hours
 Gosub Write_time_to_display
 
+' Main loop
 Do
 
    If Alarmdisplay = 0 Then
@@ -247,18 +251,20 @@ Do
    Debounce Alarm_disabled , 1 , Alarmenabled_action , Sub
    Debounce Alarm_disabled , 0 , Alarmenabled_action , Sub
 
+   Debounce Sleep_btn , 0 , Sleeppressed_action , Sub
+
 
    If Alarm_disabled = 0 Then                               ' The alarm is enabled
       If Alarm_configured = 0 Then
          Set Alarm_configured
-         Reset Song_finished
+         Song_finished = Song_repeat
          Tone_idx = 0
       End If
-      If Song_finished = 1 Then
+      If Song_finished < 1 Then
          Reset Alarm_fired
-         Reset Song_finished
          Tone_idx = 0
          Gosub Delete_dfc_alarm_interrupt_flag
+         Gosub Buzzer_off
       End If
    Else
       If Alarm_configured = 1 Then
@@ -270,7 +276,7 @@ Do
 
          Gosub Disable_alarm
          Reset Alarm_configured
-         Reset Song_finished
+         Song_finished = 0
          Tone_idx = 0
       End If
    End If
@@ -332,8 +338,6 @@ Do
          End If
       End If
    End If
-
-
 Loop
 End
 
@@ -341,6 +345,9 @@ End
 
 
 
+' Initialise the display
+' Run through the lamp test and then enable the colon
+' and set this to blink mode.
 Init_display:
    Reset Display_ss
    Mosi(1) = Power_register
@@ -358,7 +365,7 @@ Init_display:
    Spiout Mosi(2) , 1
    Set Display_ss
 
-   Waitus 50
+   Wait 1
 
    Reset Display_ss
    Mosi(1) = Display_test_register
@@ -396,6 +403,10 @@ Init_display:
 Return
 
 
+' Write the content of the display_time array
+' to the display
+' also the dfc_received and alarm enabled status display
+' will also be displayed
 Write_time_to_display:
 
    Reset Display_ss
@@ -455,6 +466,7 @@ Write_time_to_display:
 Return
 
 
+' Display only the dfc_received on the display
 Indicate_dfc:
    Reset Display_ss
    Waitus 50
@@ -473,6 +485,8 @@ Indicate_dfc:
 Return
 
 
+' Set up the RTC for a one minute interrupt, no alarm initially
+' and enable the dfc'
 Rtc_dfc_initialisation:
    Reset Dfc_ss
    Mosi(1) = &H0A                                           ' Bulk write, starting at register &H0A
@@ -670,6 +684,11 @@ Alarmenabled_action:
 Return
 
 
+Sleeppressed_action:
+   If Alarm_fired = 1 Then
+      Set Sleeppressed
+   End If
+Return
 
 Fast_set_action:
    If Fast_set = 0 Then Set Isfastpressed
@@ -718,28 +737,40 @@ Timer0_isr:
             Gosub Buzzer_off
          End If
       Else
-         If Tone_idx < Songlen Then
-            Incr Tone_idx                                   ' Get the next tone
-            Tone = Song(tone_idx)
-            Tone_length = Tone And &H0F                     ' Get the tone length
-            Tone_length = Base_length * Tone_length         ' Factor the tone buy the base length
-            Tone_length = Tone_length + Base_length         ' Build in a unit gap at the end
+         If Sleeppressed = 0 Then
+            If Tone_idx < Songlen Then
+               Incr Tone_idx                                ' Get the next tone
+               Tone = Song(tone_idx)
+               Tone_length = Tone And &H0F                  ' Get the tone length
+               Tone_length = Base_length * Tone_length      ' Factor the tone buy the base length
+               Tone_length = Tone_length + Base_length      ' Build in a unit gap at the end
 
-            If Tone > &H80 Then
-               Gosub Buzzer_off
+               If Tone > &H80 Then
+                  Gosub Buzzer_off
+               Else
+                  Gosub Buzzer_on
+               End If
             Else
-               Gosub Buzzer_on
+               If Song_finished > 0 Then
+                  Decr Song_finished
+                  Tone_idx = 0
+               End If
             End If
          Else
-            Set Song_finished
+            Reset Sleeppressed
+            Song_finished = 0
+            Tone_idx = Songlen - 1
+            Tone_length = 0
+            Tone = &HFF
+            Gosub Buzzer_off
          End If
       End If
    End If
 Return
 
 Melody1:                                                    ' Wake up - Morse code
-Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &HFF
+Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &H87 , &HFF
 
 
-Melody2:                                                    ' Three chirps and a pause
-Data &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
+' Melody2:                                                    ' Three chirps and a pause
+' Data &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
