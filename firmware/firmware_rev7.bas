@@ -157,6 +157,7 @@ Dim Wasfastalreadyset As Bit
 Dim Wasslowalreadyset As Bit
 Dim Fastlongpresscounter As Long
 Dim Slowlongpresscounter As Long
+Dim Press_delay As Integer
 Const Longthreshold = 2
 
 
@@ -314,6 +315,13 @@ Do
 
       If Alarm_disabled = 0 Then
          If Isslowpressed = 1 Then
+            Press_delay = 500
+         Else
+            If Isfastpressed = 1 Then
+               Press_delay = 10
+            End If
+         End If
+         If Isslowpressed = 1 Or Isfastpressed = 1 Then
             Incr Alarm_minutes
             If Alarm_minutes > 59 Then
                Alarm_minutes = 0
@@ -322,19 +330,7 @@ Do
                   Alarm_hours = 0
                End If
             End If
-            Waitms 500
-         Else
-            If Isfastpressed = 1 Then
-               Alarm_minutes = Alarm_minutes + 10
-               If Alarm_minutes > 59 Then
-                  Alarm_minutes = 0
-                  Incr Alarm_hours
-                  If Alarm_hours > 23 Then
-                     Alarm_hours = 0
-                  End If
-               End If
-               Waitms 500
-            End If
+            Waitms Press_delay
          End If
       End If
    End If
