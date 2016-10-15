@@ -134,7 +134,6 @@ Dim Alarm_minutes As Byte
 Dim Alarm_hours As Byte
 
 Dim Rtc_interrupt_fired As Bit
-Rtc_interrupt_fired = 0
 Dim Dfc_time As Byte
 Dfc_time = 5
 Dim Periodic_int As Bit
@@ -159,7 +158,6 @@ Dim Fastlongpresscounter As Long
 Dim Slowlongpresscounter As Long
 Dim Press_delay As Integer
 Const Longthreshold = 2
-
 
 Const Tone_pitch = 500                                      ' 397
 
@@ -199,7 +197,7 @@ Gosub Buzzer_off
 Waitms 1400
 
 Reset Heartbeat
-Wait 2
+'Wait 2
 
 Gosub Rtc_dfc_initialisation
 
@@ -207,7 +205,7 @@ Gosub Rtc_dfc_initialisation
 ' Load the alarm meloldy into the buffer
 ' ============================================================================
 Songlen = 0
-Restore Melody1
+Restore Melody2
 Do
    Read Tone
    If Tone <> &HFF Then
@@ -227,8 +225,6 @@ Display_time(minutes_i) = 0
 Display_time(hours_i) = 0
 Reset Sleeppressed
 
-Wait 1
-
 Gosub Init_display
 
 Gosub Read_time_from_dfc
@@ -237,6 +233,8 @@ Display_time(seconds_i) = Time_seconds
 Display_time(minutes_i) = Time_minutes
 Display_time(hours_i) = Time_hours
 Gosub Write_time_to_display
+
+gosub Alarmdisplayreset_action
 
 ' Main loop
 Do
@@ -255,7 +253,29 @@ Do
    Debounce Sleep_btn , 0 , Sleeppressed_action , Sub
 
 
-   If Alarm_disabled = 0 Then                               ' The alarm is enabled
+   If Rtc_interrupt_fired = 1 Then
+      Rtc_interrupt_fired = 0
+
+      Gosub Read_time_from_dfc
+
+      Waitms 50
+
+      Display_time(seconds_i) = Time_seconds
+      Display_time(minutes_i) = Time_minutes
+      Display_time(hours_i) = Time_hours
+      Gosub Write_time_to_display
+
+      Waitms 50
+
+      Gosub Read_dfc_interrupt_flag
+
+      If Periodic_int = 1 Then
+         Periodic_int = 0
+         Gosub Rtc_fired
+      End If
+   End If
+
+   If Alarm_disabled = 0 Then                ' The alarm is enabled
       If Alarm_configured = 0 Then
          Set Alarm_configured
          Song_finished = Song_repeat
@@ -279,28 +299,6 @@ Do
          Reset Alarm_configured
          Song_finished = 0
          Tone_idx = 0
-      End If
-   End If
-
-   If Rtc_interrupt_fired = 1 Then
-      Rtc_interrupt_fired = 0
-
-      Gosub Read_time_from_dfc
-
-      Waitms 50
-
-      Display_time(seconds_i) = Time_seconds
-      Display_time(minutes_i) = Time_minutes
-      Display_time(hours_i) = Time_hours
-      Gosub Write_time_to_display
-
-      Waitms 50
-
-      Gosub Read_dfc_interrupt_flag
-
-      If Periodic_int = 1 Then
-         Periodic_int = 0
-         Gosub Rtc_fired
       End If
    End If
 
@@ -764,9 +762,9 @@ Timer0_isr:
    End If
 Return
 
-Melody1:                                                    ' Wake up - Morse code
-Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &H87 , &HFF
+' Melody1:                                                    ' Wake up - Morse code
+' Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &H87 , &HFF
 
 
-' Melody2:                                                    ' Three chirps and a pause
-' Data &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
+Melody2:                                                    ' Three chirps and a pause
+Data &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
