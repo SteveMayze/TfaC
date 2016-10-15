@@ -64,4 +64,3 @@ Return
 
 Melody:                                                     ' Wake up - Morse code
 Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , , &H03 , &H87 , &H01 , &H03 , &H03 , &H01 , &HFF
-

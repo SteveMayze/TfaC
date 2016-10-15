@@ -159,12 +159,12 @@ Dim Slowlongpresscounter As Long
 Dim Press_delay As Integer
 Const Longthreshold = 2
 
-Const Tone_pitch = 500                                      ' 397
+Const Tone_pitch = 200                                      ' 397
 
 Dim Tone As Byte
 Dim Tone_length As Integer
 Dim Tone_idx As Byte
-Dim Song(26) As Byte
+Dim Song(25) As Byte
 Dim Songlen As Byte
 Dim Song_finished As Byte
 Const Song_repeat = 5
@@ -205,7 +205,7 @@ Gosub Rtc_dfc_initialisation
 ' Load the alarm meloldy into the buffer
 ' ============================================================================
 Songlen = 0
-Restore Melody2
+Restore Melody1
 Do
    Read Tone
    If Tone <> &HFF Then
@@ -226,15 +226,6 @@ Display_time(hours_i) = 0
 Reset Sleeppressed
 
 Gosub Init_display
-
-Gosub Read_time_from_dfc
-Waitms 50
-Display_time(seconds_i) = Time_seconds
-Display_time(minutes_i) = Time_minutes
-Display_time(hours_i) = Time_hours
-Gosub Write_time_to_display
-
-gosub Alarmdisplayreset_action
 
 ' Main loop
 Do
@@ -275,11 +266,11 @@ Do
       End If
    End If
 
-   If Alarm_disabled = 0 Then                ' The alarm is enabled
-      If Alarm_configured = 0 Then
-         Set Alarm_configured
-         Song_finished = Song_repeat
-         Tone_idx = 0
+   If Alarm_disabled = 0 Then                               ' The alarm is enabled
+      If Alarm_configured = 0 Then                          ' If the alarm as not been configured,
+         Set Alarm_configured                               ' set the alarm as configured
+         Song_finished = Song_repeat                        ' Reset the song repeat counter
+         Tone_idx = 0                                       ' Set the melody tone index to the start
       End If
       If Song_finished < 1 Then
          Reset Alarm_fired
@@ -289,7 +280,6 @@ Do
       End If
    Else
       If Alarm_configured = 1 Then
-
          Display_time(seconds_i) = Time_seconds
          Display_time(minutes_i) = Time_minutes
          Display_time(hours_i) = Time_hours
@@ -311,25 +301,23 @@ Do
       Display_time(hours_i) = Makebcd(alarm_hours)
       Gosub Write_time_to_display
 
-      If Alarm_disabled = 0 Then
-         If Isslowpressed = 1 Then
-            Press_delay = 500
-         Else
-            If Isfastpressed = 1 Then
-               Press_delay = 10
+      If Isslowpressed = 1 Then
+         Press_delay = 500
+      Else
+         If Isfastpressed = 1 Then
+            Press_delay = 10
+         End If
+      End If
+      If Isslowpressed = 1 Or Isfastpressed = 1 Then
+         Incr Alarm_minutes
+         If Alarm_minutes > 59 Then
+            Alarm_minutes = 0
+            Incr Alarm_hours
+            If Alarm_hours > 23 Then
+               Alarm_hours = 0
             End If
          End If
-         If Isslowpressed = 1 Or Isfastpressed = 1 Then
-            Incr Alarm_minutes
-            If Alarm_minutes > 59 Then
-               Alarm_minutes = 0
-               Incr Alarm_hours
-               If Alarm_hours > 23 Then
-                  Alarm_hours = 0
-               End If
-            End If
-            Waitms Press_delay
-         End If
+         Waitms Press_delay
       End If
    End If
 Loop
@@ -527,39 +515,35 @@ Return
 
 
 Write_alarm_to_rtc:
-
-   If Alarm_disabled = 0 Then
-      Reset Dfc_ss
-      Mosi(1) = &H07
-      Mosi(2) = Makebcd(alarm_minutes)
-      Mosi(3) = Makebcd(alarm_hours)
-      Mosi(4) = &HFF
-      Spiout Mosi(1) , 1
-      Spiout Mosi(2) , 1
-      Spiout Mosi(3) , 1
-      Spiout Mosi(4) , 1
-      Set Dfc_ss
-      Gosub Enable_alarm
-   End If
-
+   Reset Dfc_ss
+   Mosi(1) = &H07
+   Mosi(2) = Makebcd(alarm_minutes)
+   Mosi(3) = Makebcd(alarm_hours)
+   Mosi(4) = &HFF
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Spiout Mosi(3) , 1
+   Spiout Mosi(4) , 1
+   Set Dfc_ss
+   Gosub Enable_alarm
 Return
 
 Enable_alarm:
-      Reset Dfc_ss
-      Mosi(1) = &H8B
-      Mosi(2) = &B00000110
-      Spiout Mosi(1) , 1
-      Spiout Mosi(2) , 1
-      Set Dfc_ss
+   Reset Dfc_ss
+   Mosi(1) = &H8B
+   Mosi(2) = &B00000110
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Dfc_ss
 Return
 
 Disable_alarm:
-      Reset Dfc_ss
-      Mosi(1) = &H8B
-      Mosi(2) = &B00000000
-      Spiout Mosi(1) , 1
-      Spiout Mosi(2) , 1
-      Set Dfc_ss
+   Reset Dfc_ss
+   Mosi(1) = &H8B
+   Mosi(2) = &B00000000
+   Spiout Mosi(1) , 1
+   Spiout Mosi(2) , 1
+   Set Dfc_ss
 Return
 
 
@@ -762,9 +746,11 @@ Timer0_isr:
    End If
 Return
 
-' Melody1:                                                    ' Wake up - Morse code
-' Data &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &H87 , &HFF
+' Wake up - Morse code
+' .-- .- -.- . / ..- .--.
+Melody1:
+Data &H83 , &H01 , &H03 , &H03 , &H83 , &H01 , &H03 , &H83 , &H03 , &H01 , &H03 , &H83 , &H01 , &H87 , &H01 , &H01 , &H03 , &H83 , &H01 , &H03 , &H03 , &H01 , &H87 , &HFF
 
 
 Melody2:                                                    ' Three chirps and a pause
-Data &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
+Data &H83 , &H01 , &H01 , &H01 , &H01 , &H87 , &HFF
