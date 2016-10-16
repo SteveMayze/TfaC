@@ -36,7 +36,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 5
-Title ""
+Title "TfaC - Arlarm Clock Restoration Project."
 Date ""
 Rev ""
 Comp ""
@@ -232,7 +232,7 @@ U 1 1 564D71D7
 P 6700 2000
 F 0 "D201" H 6700 2100 50  0000 C CNN
 F 1 "LED" H 6700 1900 50  0000 C CNN
-F 2 "LEDs:LED-0805" H 6700 2000 60  0001 C CNN
+F 2 "LEDs:LED_0805" H 6700 2000 60  0001 C CNN
 F 3 "" H 6700 2000 60  0000 C CNN
 	1    6700 2000
 	0    -1   -1   0   
@@ -272,7 +272,7 @@ U 1 1 564D751D
 P 7300 4600
 F 0 "D202" H 7300 4700 50  0000 C CNN
 F 1 "LED" H 7300 4500 50  0000 C CNN
-F 2 "LEDs:LED-0805" H 7300 4600 60  0001 C CNN
+F 2 "LEDs:LED_0805" H 7300 4600 60  0001 C CNN
 F 3 "" H 7300 4600 60  0000 C CNN
 	1    7300 4600
 	0    -1   -1   0   
@@ -306,4 +306,32 @@ $EndComp
 Wire Wire Line
 	7300 5300 7300 5550
 Connection ~ 7300 4000
+$Comp
+L TEST_1P W201
+U 1 1 56E53D9F
+P 6900 1500
+F 0 "W201" H 6900 1770 50  0000 C CNN
+F 1 "TEST_1P" H 6900 1700 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-SMD-Pad_Small" H 7100 1500 50  0001 C CNN
+F 3 "" H 7100 1500 50  0000 C CNN
+	1    6900 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 1500 6900 1600
+Connection ~ 6900 1600
+$Comp
+L TEST_1P W202
+U 1 1 56E53EC3
+P 7500 3950
+F 0 "W202" H 7500 4220 50  0000 C CNN
+F 1 "TEST_1P" H 7500 4150 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-SMD-Pad_Small" H 7700 3950 50  0001 C CNN
+F 3 "" H 7700 3950 50  0000 C CNN
+	1    7500 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 3950 7500 4000
+Connection ~ 7500 4000
 $EndSCHEMATC
