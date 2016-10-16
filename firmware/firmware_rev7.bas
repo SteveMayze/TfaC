@@ -44,7 +44,8 @@ Buzzer Alias Portb.1
 Config Buzzer = Output
 Config Timer1 = Timer , Compare A = Toggle , Prescale = 1 , Clear Timer = 1
 
-Const Timer0_startvalue = 100                               ' 0.01 seconds
+' This timer sets up the length of the tone for the "melody"
+Const Timer0_startvalue = 100                               ' 0.001 seconds
 Config Timer0 = Timer , Prescale = 64
 Timer0 = Timer0_startvalue
 On Timer0 Timer0_isr
@@ -159,7 +160,7 @@ Dim Slowlongpresscounter As Long
 Dim Press_delay As Integer
 Const Longthreshold = 2
 
-Const Tone_pitch = 200                                      ' 397
+Const Tone_pitch = 200
 
 Dim Tone As Byte
 Dim Tone_length As Integer
@@ -199,7 +200,7 @@ Gosub Buzzer_off
 Waitms 1400
 Reset Heartbeat
 
-'Wait just 2 more seconds to give time for the RTC-DFC to start up. 
+'Wait just 2 more seconds to give time for the RTC-DFC to start up.
 Wait 2
 Gosub Rtc_dfc_initialisation
 
