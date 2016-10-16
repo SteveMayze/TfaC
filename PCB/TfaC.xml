@@ -2,13 +2,13 @@
 <export version="D">
   <design>
     <source>/home/vagrant/pcbs/TfaC/PCB/TfaC.sch</source>
-    <date>Sat 27 Aug 2016 10:44:58 AM CEST</date>
+    <date>Sun 16 Oct 2016 02:16:25 PM CEST</date>
     <tool>Eeschema 4.0.0-2.201512072331+6194~38~ubuntu14.04.1-stable</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
-        <title/>
+        <title>TfaC - Arlarm Clock Restoration Project.</title>
         <company/>
-        <rev/>
+        <rev>2L.3</rev>
         <date/>
         <source>TfaC.sch</source>
         <comment number="1" value=""/>
@@ -19,7 +19,7 @@
     </sheet>
     <sheet number="2" name="/Power System/" tstamps="/5560D23E/">
       <title_block>
-        <title/>
+        <title>TfaC - Arlarm Clock Restoration Project.</title>
         <company/>
         <rev/>
         <date/>
@@ -32,7 +32,7 @@
     </sheet>
     <sheet number="3" name="/Display Module/" tstamps="/5560D289/">
       <title_block>
-        <title/>
+        <title>TfaC - Arlarm Clock Restoration Project.</title>
         <company/>
         <rev/>
         <date/>
@@ -45,7 +45,7 @@
     </sheet>
     <sheet number="4" name="/RTC Module/" tstamps="/5560D2A4/">
       <title_block>
-        <title/>
+        <title>TfaC - Arlarm Clock Restoration Project.</title>
         <company/>
         <rev/>
         <date/>
@@ -58,7 +58,7 @@
     </sheet>
     <sheet number="5" name="/Controller/" tstamps="/5560D274/">
       <title_block>
-        <title/>
+        <title>TfaC - Arlarm Clock Restoration Project.</title>
         <company/>
         <rev/>
         <date/>
