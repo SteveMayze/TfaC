@@ -190,15 +190,17 @@ Alarm_minutes = 0
 Alarm_hours = 0
 Alarm_configured = 0
 
+' Signal a startup/reset by illuminating the Heartbeat and
+' sounding the buzzer for one second.
 Set Heartbeat
 Gosub Buzzer_on
 Waitms 100
 Gosub Buzzer_off
 Waitms 1400
-
 Reset Heartbeat
-'Wait 2
 
+'Wait just 2 more seconds to give time for the RTC-DFC to start up. 
+Wait 2
 Gosub Rtc_dfc_initialisation
 
 ' ============================================================================
