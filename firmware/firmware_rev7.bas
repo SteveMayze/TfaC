@@ -463,6 +463,8 @@ Indicate_dfc:
    Else
       Mosi(2) = &H00
    End If
+   Alarm_enabled = Not Alarm_disabled
+   Mosi(2) = Mosi(2) Or Alarm_enabled
    Spiout Mosi(1) , 1
    Spiout Mosi(2) , 1
    Waitus 50
@@ -705,7 +707,7 @@ Pcint1_isr:
    Rtc_interrupt_fired = 1
    If Second_interrupt = 0 Then Periodic_int = 1
    If Dfc_interrupt = 0 Then Dfc_time = 0
-   If Dfc_alarm = 0 Then Set Alarm_fired
+   ' If Dfc_alarm = 0 Then Set Alarm_fired
 Return
 
 
@@ -744,6 +746,7 @@ Timer0_isr:
             Tone_length = 0
             Tone = &HFF
             Gosub Buzzer_off
+            Gosub Delete_dfc_interrupt_flag
          End If
       End If
    End If

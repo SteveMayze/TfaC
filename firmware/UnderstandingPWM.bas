@@ -1,7 +1,7 @@
 
 
 $crystal = 1000000
-$regfile = "m88pdef.dat"
+$regfile = "m88adef.dat"
 $hwstack = 40
 $swstack = 40
 $framesize = 60
